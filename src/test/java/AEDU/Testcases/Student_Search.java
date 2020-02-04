@@ -26,22 +26,42 @@ public class Student_Search extends Basecase {
         driver.quit();
     }
     @Test
-    public void SelectClass() throws InterruptedException, IOException, SQLException{
-        logger = extent.createTest("Check If Students are filtered By Class only that records match with DB or not");
+    public void SelectClassActive() throws InterruptedException, IOException, SQLException{
+        logger = extent.createTest("Check If Students are Active And We filtered By Class only, Is records match with DB or not?");
         StudentInformation SI = new StudentInformation(driver,logger);
         SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
         StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckDataByClass();
+        searchStudent.CheckDataByClassActive();
         Thread.sleep(5000);
         driver.quit();
     }
     @Test
-    public void SelectClassSection() throws InterruptedException, IOException, SQLException{
-        logger = extent.createTest("Check If Students are filtered By Class only that records match with DB or not");
+    public void SelectClassSectionActive() throws InterruptedException, IOException, SQLException{
+        logger = extent.createTest("Check If Students are Active And We filtered By Class with section & that records match with DB or not");
         StudentInformation SI = new StudentInformation(driver,logger);
         SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
         StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckDataByClassAndSection();
+        searchStudent.CheckDataByClassAndSectionActive();
+        Thread.sleep(5000);
+        driver.quit();
+    }
+    @Test
+    public void SelectClassSectionInactive() throws InterruptedException, IOException, SQLException{
+        logger = extent.createTest("Check If InActive Students are filtered By Class with section & that records match with DB or not");
+        StudentInformation SI = new StudentInformation(driver,logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+        StudentSearch searchStudent= new StudentSearch(driver,logger);
+        searchStudent.CheckDataByClassAndSectionActive();
+        Thread.sleep(5000);
+        driver.quit();
+    }
+    @Test
+    public void SelectClassInactive() throws InterruptedException, IOException, SQLException{
+        logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
+        StudentInformation SI = new StudentInformation(driver,logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+        StudentSearch searchStudent= new StudentSearch(driver,logger);
+        searchStudent.CheckDataByClassAndSectionActive();
         Thread.sleep(5000);
         driver.quit();
     }
