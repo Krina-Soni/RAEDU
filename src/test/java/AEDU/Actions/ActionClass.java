@@ -8,10 +8,7 @@ package AEDU.Actions;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,8 +33,8 @@ public class ActionClass {
             if(element.isDisplayed())
             {
                 element.click();
-                test.log(Status.INFO,"Sucessfully clicked on object ");
-                System.out.println("Sucessfully clicked on object");
+                test.log(Status.INFO,"Sucessfully clicked on object "+element.getAttribute("name"));
+                System.out.println("Sucessfully clicked on object"+element.getAttribute("name"));
             }
             else
             {
@@ -97,7 +94,23 @@ public class ActionClass {
             test.log(Status.FAIL,e.getMessage());
         }
     }
+    public void setValueinPortalField(WebElement element) {
 
+        try{
+            if(element.isDisplayed()){
+                element.click();
+                element.sendKeys("Elance");
+                element.sendKeys(Keys.ENTER);
+
+                element.click();
+                element.sendKeys("Freelancer");
+                element.sendKeys(Keys.ENTER);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     public static void captureScreen(String testcaseName) throws IOException {
         DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_MM_SS");
         Date date = new Date();

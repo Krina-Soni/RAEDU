@@ -25,7 +25,24 @@ public class Student_Search extends Basecase {
         Thread.sleep(5000);
         driver.quit();
     }
-
-
-
+    @Test
+    public void SelectClass() throws InterruptedException, IOException, SQLException{
+        logger = extent.createTest("Check If Students are filtered By Class only that records match with DB or not");
+        StudentInformation SI = new StudentInformation(driver,logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+        StudentSearch searchStudent= new StudentSearch(driver,logger);
+        searchStudent.CheckDataByClass();
+        Thread.sleep(5000);
+        driver.quit();
+    }
+    @Test
+    public void SelectClassSection() throws InterruptedException, IOException, SQLException{
+        logger = extent.createTest("Check If Students are filtered By Class only that records match with DB or not");
+        StudentInformation SI = new StudentInformation(driver,logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+        StudentSearch searchStudent= new StudentSearch(driver,logger);
+        searchStudent.CheckDataByClassAndSection();
+        Thread.sleep(5000);
+        driver.quit();
+    }
 }
