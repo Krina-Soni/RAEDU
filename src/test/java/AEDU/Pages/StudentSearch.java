@@ -281,6 +281,7 @@ public class StudentSearch {
         actionClass.clickOnObject(this.ClassValue);
         Thread.sleep(1000);
         if (ClassValue.isSelected() == true) {
+
             actionClass.clickOnObject(this.ClickonStatus);
             actionClass.clickOnObject(this.ClickonStatusInactive);
             actionClass.clickOnObject(this.ClickOnSearch1);
