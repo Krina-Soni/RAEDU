@@ -51,7 +51,7 @@ public class Student_Search extends Basecase {
         StudentInformation SI = new StudentInformation(driver,logger);
         SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
         StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckDataByClassAndSectionActive();
+        searchStudent.CheckDataByClassAndSectionInctive();
         Thread.sleep(5000);
         driver.quit();
     }
@@ -61,7 +61,17 @@ public class Student_Search extends Basecase {
         StudentInformation SI = new StudentInformation(driver,logger);
         SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
         StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckDataByClassAndSectionActive();
+        searchStudent.CheckDataByClassInactive();
+        Thread.sleep(5000);
+        driver.quit();
+    }
+    @Test
+    public void SearchKeywordInAllReference() throws InterruptedException, IOException, SQLException{
+        logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
+        StudentInformation SI = new StudentInformation(driver,logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+        StudentSearch searchStudent= new StudentSearch(driver,logger);
+        searchStudent.CheckForKeyWordSearch();
         Thread.sleep(5000);
         driver.quit();
     }
