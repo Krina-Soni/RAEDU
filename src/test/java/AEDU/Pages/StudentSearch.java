@@ -151,7 +151,11 @@ public class StudentSearch {
             ResultSet queryRs1 = statement.executeQuery(searchstudentbyclass);
             ArrayList listNames = new ArrayList();
             while (queryRs1.next()) {
+                String s1 = null;
+                s1 = queryRs1.getString("students.admission_no");
+                System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs1.getString("students.admission_no"));
+
             }
             System.out.println(listNames.equals(listNames1));
             actionClass.CompareList(listNames, listNames1);
@@ -202,6 +206,9 @@ public class StudentSearch {
             ResultSet queryRs2 = statement.executeQuery(searchstudentbyclass);
             ArrayList listNames = new ArrayList();
             while (queryRs2.next()) {
+                String s1 = null;
+                s1 = queryRs.getString("students.admission_no");
+                System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs2.getString("students.admission_no"));
             }
             System.out.println(listNames.equals(listNames1));
@@ -254,6 +261,9 @@ public class StudentSearch {
             ResultSet queryRs3 = statement.executeQuery(searchstudentbyclass);
             ArrayList listNames = new ArrayList();
             while (queryRs3.next()) {
+                String s1 = null;
+                s1 = queryRs.getString("students.admission_no");
+                System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs3.getString("students.admission_no"));
             }
             System.out.println(listNames.equals(listNames1));
@@ -304,6 +314,9 @@ public class StudentSearch {
             ResultSet queryRs4 = statement.executeQuery(searchstudentbyclass);
             ArrayList listNames = new ArrayList();
             while (queryRs4.next()) {
+                String s1 = null;
+                s1 = queryRs4.getString("students.admission_no");
+                System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs4.getString("students.admission_no"));
             }
             System.out.println(listNames.equals(listNames1));
@@ -348,6 +361,9 @@ public class StudentSearch {
         ResultSet queryRs7 = statement.executeQuery(searchstudentbykeyword);
         ArrayList KeywordList = new ArrayList();
         while (queryRs7.next()) {
+            String s1 = null;
+            s1 = queryRs7.getString("students.admission_no");
+            System.out.println("Admission no. is " + s1);
             KeywordList.add(queryRs7.getString("students.admission_no"));
         }
         System.out.println(KeywordList.equals(KeywordListF));
@@ -379,15 +395,20 @@ public class StudentSearch {
         statement = conn.createStatement();
         String students = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive, classes.class, students.admission_no FROM `student_session` INNER JOIN students ON student_session.student_id = students.id INNER JOIN classes ON student_session.class_id=classes.id WHERE student_session.session_id='15' AND students.is_inactive='no' ORDER BY `students`.`admission_no` ASC";
         queryRs = statement.executeQuery(students);
-        ArrayList listNames = new ArrayList();
+        ArrayList<String> listNames = new ArrayList<String>();
 
         while (queryRs.next()) {
-            String s = null;
-//            s1 = queryRs.getString("students.admission_no");
-//            System.out.println("Admission no. is " + s1);
+            String s1 = null;
+            s1 = queryRs.getString("students.admission_no");
+            System.out.println("Admission no. is " + s1);
             listNames.add(queryRs.getString("students.admission_no"));
-
         }
+        List<Integer> newIntegerList= new ArrayList<Integer>(listNames1.size());
+        for(String myInt : listNames ){
+            newIntegerList.add(Integer.valueOf(myInt));
+        }
+        System.out.println(newIntegerList);
+        System.out.println(listNames.equals(newIntegerList));
         System.out.println(listNames.equals(listNames1));
         actionClass.CompareList(listNames,listNames1);
 
