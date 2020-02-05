@@ -245,13 +245,17 @@ public class StudentSearch {
             actionClass.clickOnObject(this.ClickOnSearch1);
             List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
             int ClassStudentsize = ListStudent.size();
-            ArrayList listNames1 = new ArrayList();
+            ArrayList<String> listNames1 = new ArrayList<String>();
             for (int i = 1; i <= ClassStudentsize; i++) {
                 String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
                 System.out.println("Value in list is: " + s);
                 listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
             }
-
+            ArrayList<Integer> CheckDataByClassAndSectionInctive= new ArrayList<Integer>(listNames1.size());
+            for(String myInt : listNames1 ){
+                CheckDataByClassAndSectionInctive.add(Integer.valueOf(myInt));
+            }
+            System.out.println(CheckDataByClassAndSectionInctive);
             DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
             conn = DAB.connect();
             statement = conn.createStatement();
@@ -259,15 +263,21 @@ public class StudentSearch {
             String B2 = SectionValue.getText();
             String searchstudentbyclass = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive,sections.id,sections.section, classes.class, students.admission_no FROM `student_session` INNER JOIN sections ON student_session.section_id=sections.id INNER JOIN students ON student_session.student_id = students.id INNER JOIN classes ON student_session.class_id=classes.id WHERE student_session.session_id='15' AND classes.class='" + B1 + "' AND sections.section='" + B2 + "' AND student_session.is_inactive='yes' ORDER BY `students`.`admission_no`";
             ResultSet queryRs3 = statement.executeQuery(searchstudentbyclass);
-            ArrayList listNames = new ArrayList();
+            ArrayList<String> listNames = new ArrayList();
             while (queryRs3.next()) {
                 String s1 = null;
                 s1 = queryRs.getString("students.admission_no");
                 System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs3.getString("students.admission_no"));
             }
+            ArrayList<Integer> CheckDataByClassAndSectionInctiveList= new ArrayList<Integer>(listNames.size());
+            for(String myInt : listNames ){
+                CheckDataByClassAndSectionInctiveList.add(Integer.valueOf(myInt));
+            }
+            Collections.sort(CheckDataByClassAndSectionInctiveList);
+            System.out.println(CheckDataByClassAndSectionInctiveList);
             System.out.println(listNames.equals(listNames1));
-            actionClass.CompareList(listNames, listNames1);
+            actionClass.CompareList(CheckDataByClassAndSectionInctiveList, CheckDataByClassAndSectionInctiveList);
 
             actionClass.captureScreen("Default Keyword search");
 
@@ -297,13 +307,17 @@ public class StudentSearch {
             actionClass.clickOnObject(this.ClickOnSearch1);
             List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
             int ClassStudentsize = ListStudent.size();
-            ArrayList listNames1 = new ArrayList();
+            ArrayList<String> listNames1 = new ArrayList<String>();
             for (int i = 1; i <= ClassStudentsize; i++) {
                 String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
                 System.out.println("Value in list is: " + s);
                 listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
             }
-
+            ArrayList<Integer> CheckDataByClassInactiveList1= new ArrayList<Integer>(listNames1.size());
+            for(String myInt : listNames1 ){
+                CheckDataByClassInactiveList1.add(Integer.valueOf(myInt));
+            }
+            System.out.println(CheckDataByClassInactiveList1);
             DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
             conn = DAB.connect();
             statement = conn.createStatement();
@@ -312,15 +326,21 @@ public class StudentSearch {
             String searchstudentbyclass = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive, classes.class, students.admission_no FROM `student_session` INNER JOIN students ON student_session.student_id = students.id INNER JOIN classes ON student_session.class_id=classes.id WHERE student_session.session_id='15' AND classes.class='" + B1 + "' AND student_session.is_inactive='yes' ORDER BY `students`.`admission_no`";
             System.out.println(searchstudentbyclass);
             ResultSet queryRs4 = statement.executeQuery(searchstudentbyclass);
-            ArrayList listNames = new ArrayList();
+            ArrayList<String> listNames = new ArrayList<String>();
             while (queryRs4.next()) {
                 String s1 = null;
                 s1 = queryRs4.getString("students.admission_no");
                 System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs4.getString("students.admission_no"));
             }
-            System.out.println(listNames.equals(listNames1));
-            actionClass.CompareList(listNames, listNames1);
+            ArrayList<Integer> CheckDataByClassInactiveList= new ArrayList<Integer>(listNames.size());
+            for(String myInt : listNames ){
+                CheckDataByClassInactiveList.add(Integer.valueOf(myInt));
+            }
+            Collections.sort(CheckDataByClassInactiveList);
+            System.out.println(CheckDataByClassInactiveList);
+            System.out.println(CheckDataByClassInactiveList1.equals(CheckDataByClassInactiveList));
+            actionClass.CompareList(CheckDataByClassInactiveList, CheckDataByClassInactiveList1);
 
             actionClass.captureScreen("Default Keyword search");
 
@@ -345,13 +365,17 @@ public class StudentSearch {
 
         List<WebElement> ListStudent1 = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
         int listsize = ListStudent1.size();
-        ArrayList KeywordListF = new ArrayList();
+        ArrayList<String> KeywordListF = new ArrayList<String>();
         for (int i = 1; i <= listsize; i++) {
             String s = driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText();
             System.out.println("Value in list is: " + s);
             KeywordListF.add(driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText());
         }
-
+        ArrayList<Integer> KeywordSearchIntegerList1= new ArrayList<Integer>(KeywordListF.size());
+        for(String myInt : KeywordListF ){
+            KeywordSearchIntegerList1.add(Integer.valueOf(myInt));
+        }
+        System.out.println(KeywordSearchIntegerList1);
         DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
         conn = DAB.connect();
         statement = conn.createStatement();
@@ -359,15 +383,21 @@ public class StudentSearch {
         String B22 = KeywordSearchtxt.getText();
         String searchstudentbykeyword = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive, students.admission_no FROM `student_session` INNER JOIN students ON student_session.student_id = students.id WHERE (students.firstname = 'riddhi' OR students.lastname = 'riddhi' OR students.guardian_name = 'riddhi' OR students.adhar_no = 'riddhi' OR students.samagra_id = 'riddhi' OR students.roll_no = 'riddhi' OR students.admission_no = 'riddhi') AND student_session.session_id='15' ORDER BY students.admission_no ASC";
         ResultSet queryRs7 = statement.executeQuery(searchstudentbykeyword);
-        ArrayList KeywordList = new ArrayList();
+        ArrayList<String> KeywordList = new ArrayList<String>();
         while (queryRs7.next()) {
             String s1 = null;
             s1 = queryRs7.getString("students.admission_no");
             System.out.println("Admission no. is " + s1);
             KeywordList.add(queryRs7.getString("students.admission_no"));
         }
+        ArrayList<Integer> KeywordSearchIntegerList= new ArrayList<Integer>(KeywordList.size());
+        for(String myInt : KeywordList ){
+            KeywordSearchIntegerList.add(Integer.valueOf(myInt));
+        }
+        Collections.sort(KeywordSearchIntegerList);
+        System.out.println(KeywordSearchIntegerList);
         System.out.println(KeywordList.equals(KeywordListF));
-        actionClass.CompareList(KeywordList, KeywordListF);
+        actionClass.CompareList(KeywordSearchIntegerList, KeywordSearchIntegerList1);
 
         actionClass.captureScreen("Default Keyword search");
 
