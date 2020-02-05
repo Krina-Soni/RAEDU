@@ -73,7 +73,7 @@ public class ActionClass {
             test.log(Status.FAIL,e.getMessage());
         }
     }
-    public void CompareList(ArrayList listNames, ArrayList listNames1)
+    public void CompareList(ArrayList<Integer> listNames, ArrayList<Integer> listNames1)
     {
         try {
             if(listNames.equals(listNames1)==true)

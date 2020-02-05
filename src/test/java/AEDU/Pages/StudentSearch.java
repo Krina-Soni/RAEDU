@@ -25,13 +25,13 @@ public class StudentSearch {
 
     Connection conn = null;
     //Docker
-    String url = "jdbc:mysql://localhost:6603/";
+//    String url = "jdbc:mysql://localhost:6603/";
     //localDB
-    //String url = "jdbc:mysql://localhost:3306/";
+    String url = "jdbc:mysql://localhost:3306/";
     String dbName = "AEDU";
     String driver = "com.mysql.jdbc.Driver";
     String userName = "root";
-    String password = "root";
+    String password = "";
 
     Statement statement;
     ResultSet queryRs;
@@ -383,13 +383,17 @@ public class StudentSearch {
         List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
 
         int listsize = ListStudent.size();
-        ArrayList listNames1 = new ArrayList();
+        ArrayList<String> listNames1 = new ArrayList<String>();
         for (int i = 1; i <= listsize; i++) {
             String s = driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText();
             System.out.println("Value in list is: " + s);
             listNames1.add(driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText());
         }
-
+        ArrayList<Integer> newIntegerList1= new ArrayList<Integer>(listNames1.size());
+        for(String myInt : listNames1 ){
+            newIntegerList1.add(Integer.valueOf(myInt));
+        }
+        System.out.println(newIntegerList1);
         DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
         conn = DAB.connect();
         statement = conn.createStatement();
@@ -403,14 +407,15 @@ public class StudentSearch {
             System.out.println("Admission no. is " + s1);
             listNames.add(queryRs.getString("students.admission_no"));
         }
-        List<Integer> newIntegerList= new ArrayList<Integer>(listNames1.size());
+        ArrayList<Integer> newIntegerList= new ArrayList<Integer>(listNames.size());
         for(String myInt : listNames ){
             newIntegerList.add(Integer.valueOf(myInt));
         }
+        Collections.sort(newIntegerList);
         System.out.println(newIntegerList);
-        System.out.println(listNames.equals(newIntegerList));
-        System.out.println(listNames.equals(listNames1));
-        actionClass.CompareList(listNames,listNames1);
+        System.out.println(newIntegerList1.equals(newIntegerList));
+//        System.out.println(listNames.equals(listNames1));
+        actionClass.CompareList(newIntegerList,newIntegerList1);
 
         actionClass.captureScreen("Default Keyword search");
 
