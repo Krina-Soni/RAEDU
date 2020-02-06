@@ -24,14 +24,14 @@ public class StudentSearch {
     ExtentTest extentTest;
 
     Connection conn = null;
-    //Docker
-//    String url = "jdbc:mysql://localhost:6603/";
-    //localDB
-    String url = "jdbc:mysql://localhost:3306/";
+   // Docker
+    String url = "jdbc:mysql://localhost:6603/";
+//    //localDB
+//    String url = "jdbc:mysql://localhost:3306/";
     String dbName = "AEDU";
     String driver = "com.mysql.jdbc.Driver";
     String userName = "root";
-    String password = "";
+    String password = "root";
 
     Statement statement;
     ResultSet queryRs;
@@ -207,7 +207,7 @@ public class StudentSearch {
             ArrayList listNames = new ArrayList();
             while (queryRs2.next()) {
                 String s1 = null;
-                s1 = queryRs.getString("students.admission_no");
+                s1 = queryRs2.getString("students.admission_no");
                 System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs2.getString("students.admission_no"));
             }
@@ -235,8 +235,6 @@ public class StudentSearch {
         Thread.sleep(5000);
         actionClass.clickOnObject(this.ClassValue);
         Thread.sleep(1000);
-
-
         if (ClassValue.isSelected() == true) {
             actionClass.clickOnObject(this.SelectSection);
             actionClass.clickOnObject(this.SectionValue);
@@ -263,10 +261,10 @@ public class StudentSearch {
             String B2 = SectionValue.getText();
             String searchstudentbyclass = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive,sections.id,sections.section, classes.class, students.admission_no FROM `student_session` INNER JOIN sections ON student_session.section_id=sections.id INNER JOIN students ON student_session.student_id = students.id INNER JOIN classes ON student_session.class_id=classes.id WHERE student_session.session_id='15' AND classes.class='" + B1 + "' AND sections.section='" + B2 + "' AND student_session.is_inactive='yes' ORDER BY `students`.`admission_no`";
             ResultSet queryRs3 = statement.executeQuery(searchstudentbyclass);
-            ArrayList<String> listNames = new ArrayList();
+            ArrayList<String> listNames = new ArrayList<String>();
             while (queryRs3.next()) {
                 String s1 = null;
-                s1 = queryRs.getString("students.admission_no");
+                s1 = queryRs3.getString("students.admission_no");
                 System.out.println("Admission no. is " + s1);
                 listNames.add(queryRs3.getString("students.admission_no"));
             }

@@ -33,13 +33,14 @@ public class ActionClass {
             if(element.isDisplayed())
             {
                 element.click();
-                test.log(Status.INFO,"Sucessfully clicked on object "+element.getAttribute("name"));
-                System.out.println("Sucessfully clicked on object"+element.getAttribute("name"));
+                test.log(Status.INFO,"Sucessfully clicked on object");
+                System.out.println("Sucessfully clicked on object");
+                //element.getAttribute("name")
             }
             else
             {
-                System.out.println("Unable to find object : "+element.getAttribute("name"));
-                test.log(Status.FAIL,"Unable to find object : "+element.getAttribute("name"));
+                System.out.println("Unable to find object");
+                test.log(Status.FAIL,"Unable to find object");
             }
         }
         catch (Exception e)
@@ -56,13 +57,13 @@ public class ActionClass {
             {
                 element.clear();
                 element.sendKeys(value);
-                System.out.println("Succesfully entered '"+value+"' in object :" + element.getAttribute("name"));
-                test.log(Status.INFO,"Succesfully entered '"+value+"' in object :" + element.getAttribute("name"));
+                System.out.println("Succesfully entered '"+value+"' in object");
+                test.log(Status.INFO,"Succesfully entered '"+value+"' in object :");
             }
             else
             {
-                System.out.println("Unable to find object : "+element.getAttribute("name"));
-                test.log(Status.FAIL,"Unable to find object : "+element.getAttribute("name"));
+                System.out.println("Unable to find object");
+                test.log(Status.FAIL,"Unable to find object");
 
             }
         }
