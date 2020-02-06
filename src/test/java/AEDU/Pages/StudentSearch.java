@@ -92,6 +92,11 @@ public class StudentSearch {
     private WebElement ClassValidation;
 
     @FindBy(
+            how = How.CLASS_NAME, using = "dataTables_empty"
+    )
+    private WebElement NoResultinTable;
+
+    @FindBy(
             how = How.XPATH, using = "//*[@id=\"status\"]"
     )
     private WebElement ClickonStatus;
@@ -224,8 +229,6 @@ public class StudentSearch {
         return new Object[0];
     }
 
-    // Check By Class & section Filters "Inactive"
-
     public Object[] CheckDataByClassAndSectionInctive() throws IOException, SQLException, InterruptedException {
 
         ActionClass actionClass = new ActionClass(this.driver1, extentTest);
@@ -241,19 +244,7 @@ public class StudentSearch {
             actionClass.clickOnObject(this.ClickonStatus);
             actionClass.clickOnObject(this.ClickonStatusInactive);
             actionClass.clickOnObject(this.ClickOnSearch1);
-            List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
-            int ClassStudentsize = ListStudent.size();
-            ArrayList<String> listNames1 = new ArrayList<String>();
-            for (int i = 1; i <= ClassStudentsize; i++) {
-                String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
-                System.out.println("Value in list is: " + s);
-                listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
-            }
-            ArrayList<Integer> CheckDataByClassAndSectionInctive= new ArrayList<Integer>(listNames1.size());
-            for(String myInt : listNames1 ){
-                CheckDataByClassAndSectionInctive.add(Integer.valueOf(myInt));
-            }
-            System.out.println(CheckDataByClassAndSectionInctive);
+            boolean Checktable = NoResultinTable.isDisplayed();
             DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
             conn = DAB.connect();
             statement = conn.createStatement();
@@ -262,25 +253,54 @@ public class StudentSearch {
             String searchstudentbyclass = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive,sections.id,sections.section, classes.class, students.admission_no FROM `student_session` INNER JOIN sections ON student_session.section_id=sections.id INNER JOIN students ON student_session.student_id = students.id INNER JOIN classes ON student_session.class_id=classes.id WHERE student_session.session_id='15' AND classes.class='" + B1 + "' AND sections.section='" + B2 + "' AND student_session.is_inactive='yes' ORDER BY `students`.`admission_no`";
             ResultSet queryRs3 = statement.executeQuery(searchstudentbyclass);
             ArrayList<String> listNames = new ArrayList<String>();
-            while (queryRs3.next()) {
-                String s1 = null;
-                s1 = queryRs3.getString("students.admission_no");
-                System.out.println("Admission no. is " + s1);
-                listNames.add(queryRs3.getString("students.admission_no"));
-            }
-            ArrayList<Integer> CheckDataByClassAndSectionInctiveList= new ArrayList<Integer>(listNames.size());
-            for(String myInt : listNames ){
-                CheckDataByClassAndSectionInctiveList.add(Integer.valueOf(myInt));
-            }
-            Collections.sort(CheckDataByClassAndSectionInctiveList);
-            System.out.println(CheckDataByClassAndSectionInctiveList);
-            System.out.println(listNames.equals(listNames1));
-            actionClass.CompareList(CheckDataByClassAndSectionInctiveList, CheckDataByClassAndSectionInctiveList);
 
-            actionClass.captureScreen("Default Keyword search");
+            if(Checktable==true)
+            {
+                while (queryRs3.next()) {
+                    listNames.add(queryRs3.getString("students.admission_no"));
+                }
+                int Querysize = listNames.size();
+                if (Querysize==0)
+                {
+                    System.out.println("DB table Also doesn't have the Match Record");
+                }
+                else
+                {
+                    System.out.println("DB table has the Match Records");
+                }
+            }
+            else
+            {
+                List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
+                int ClassStudentsize = ListStudent.size();
+                ArrayList<String> listNames1 = new ArrayList<String>();
+                for (int i = 1; i <= ClassStudentsize; i++) {
+                    String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
+                    System.out.println("Value in list is: " + s);
+                    listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
+                }
 
-            return listNames.toArray();
-        } else {
+                ArrayList<Integer> CheckDataByClassAndSectionInctive = new ArrayList<Integer>(listNames1.size());
+                for (String myInt : listNames1) {
+                    CheckDataByClassAndSectionInctive.add(Integer.valueOf(myInt));
+                }
+                System.out.println(CheckDataByClassAndSectionInctive);
+                while (queryRs3.next()) {
+                    listNames.add(queryRs3.getString("students.admission_no"));
+                }
+                ArrayList<Integer> CheckDataByClassAndSectionInctiveList = new ArrayList<Integer>(listNames.size());
+                for (String myInt : listNames) {
+                    CheckDataByClassAndSectionInctiveList.add(Integer.valueOf(myInt));
+                }
+                Collections.sort(CheckDataByClassAndSectionInctiveList);
+                System.out.println(CheckDataByClassAndSectionInctiveList);
+                System.out.println(listNames.equals(listNames1));
+                actionClass.CompareList(CheckDataByClassAndSectionInctiveList, CheckDataByClassAndSectionInctiveList);
+                actionClass.captureScreen("Default Keyword search");
+                return listNames.toArray();
+            }
+        }
+        else {
             VerificationClass VerifyClass = new VerificationClass(driver1, extentTest);
             VerifyClass.verifyTextPresent(ClassValidation, "The Class field is required.");
         }
@@ -311,6 +331,7 @@ public class StudentSearch {
                 System.out.println("Value in list is: " + s);
                 listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
             }
+
             ArrayList<Integer> CheckDataByClassInactiveList1= new ArrayList<Integer>(listNames1.size());
             for(String myInt : listNames1 ){
                 CheckDataByClassInactiveList1.add(Integer.valueOf(myInt));
