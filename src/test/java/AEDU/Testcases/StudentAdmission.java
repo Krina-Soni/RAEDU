@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.io.IOException;
 
 public class StudentAdmission extends Basecase {
+
+//    Verify that Login has Mandatory Validation Check
     @Test
     public void Sucessful_login() throws InterruptedException, IOException {
         logger = extent.createTest("Verify that Login has Mandatory Validation Check");
@@ -15,6 +17,8 @@ public class StudentAdmission extends Basecase {
 //        Thread.sleep(5000);
         driver.quit();
     }
+
+//    Verify that Login has Invalid Password Entered
     @Test
     public void CheckwithInvalidPassword() throws InterruptedException, IOException {
 
@@ -25,6 +29,8 @@ public class StudentAdmission extends Basecase {
 //        Thread.sleep(5000);
        driver.quit();
     }
+
+//    Verify that Login has Invalid Email Entered
     @Test
     public void CheckwithInvalidEmail() throws InterruptedException, IOException {
 
@@ -34,6 +40,7 @@ public class StudentAdmission extends Basecase {
 //        Thread.sleep(5000);
         driver.quit();
     }
+//    Verify that user has entered valid Credentials to login
     @Test
     public void Checkwithvalidcredentials() throws InterruptedException, IOException {
 
