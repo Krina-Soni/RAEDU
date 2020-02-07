@@ -23,10 +23,30 @@ public class AddStudents extends Basecase {
 
     @Test
     public void Checkallvalidations() throws InterruptedException, IOException, SQLException {
-        logger = extent.createTest("Promote Student");
+        logger = extent.createTest("Check the Addmission form  validation");
         StudentInformation SI = new StudentInformation(driver, logger);
         SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
         AddStudent check = new AddStudent(driver, logger);
         check.VeryFeildValidation();
+    }
+
+    @Test
+    public void Studentadd() throws IOException, InterruptedException, SQLException {
+        logger = extent.createTest("Check the Add Student Functionality ");
+        StudentInformation SI = new StudentInformation(driver, logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
+        AddStudent Add = new AddStudent(driver, logger);
+        Add.SetudentAddmissionform("2525", "53", "Johnny27", "Harper", "4978412542");
+
+
+    }
+
+    @Test
+    public void ImortCsv() throws IOException, InterruptedException, SQLException {
+        logger = extent.createTest("Check the Add Student via CSV Functionality ");
+        StudentInformation SI = new StudentInformation(driver, logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
+        AddStudent Import = new AddStudent(driver, logger);
+        Import.Importstudentcsv();
     }
 }

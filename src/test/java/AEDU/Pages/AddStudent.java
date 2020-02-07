@@ -125,6 +125,127 @@ public class AddStudent{
             using = "//*[@id=\"class_id\"]/option[2]"
     )
     private WebElement SelectClassOption;
+    @FindBy(
+            how = How.XPATH,
+            using = " //*[@id=\"section_id\"]"
+    )
+    private WebElement SelectSectionFeild;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"section_id\"]/option[2]"
+    )
+    private WebElement SelectSectionOption;
+    //*[@id="roll_no"]
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"roll_no\"]"
+    )
+    private WebElement RollnbFeild;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"firstname\"]"
+    )
+    private WebElement FristNamefeild;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div/div[1]/div/div[2]/div[3]/div/select]"
+    )
+    private WebElement GenderFeild;
+
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"form1\"]/div/div[1]/div/div[2]/div[3]/div/select/option[2]"
+    )
+    private WebElement SelectGender;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"father_name\"]"
+    )
+    private WebElement FatherNamefeild;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"father_phone\"]"
+    )
+    private WebElement FatherPhonenumber;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div/div[2]/div/div[5]/div/label[2]/input"
+    )
+    private WebElement GardiunSelection;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div/div[1]/div/div[6]/div[1]/div/div/div/input"
+    )
+    private WebElement Uploadfile;
+
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div/div[1]/div/div[1]\n"
+    )
+    private WebElement StudentAddedmessage;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/div/a/button"
+    )
+    private WebElement ImportCsvbButton;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"class_id\"]"
+    )
+    private WebElement ImportCsvbSelectclass;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"class_id\"]/option[2]"
+    )
+    private WebElement ImportCsvbSelectclassOption;
+
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"section_id\"]"
+    )
+    private WebElement ImportCsvbSelectSection;
+
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"section_id\"]/option[2]"
+    )
+    private WebElement ImportCsvbSelectSectionOption;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div[1]/div/div[3]/div/div/div/input"
+    )
+    private WebElement SelectCsvFile;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div[2]/button"
+    )
+    private WebElement ImportStudentbutton;
+    @FindBy(
+            how = How.XPATH,
+            using = " /html/body/div[1]/div[1]/section[2]/div/div/div/form/div[2]/button[1]"
+    )
+    private WebElement ComfimmessageYes;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div[1]/div[1]"
+    )
+    private WebElement SuccessMegforCsv;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -171,15 +292,57 @@ public class AddStudent{
 
 
     }
-    public void SetudentAddmissionform(String Addmissionnb)throws IOException ,InterruptedException{
+    public void SetudentAddmissionform(String Addmissionnb,String Rollnumber,String Fristname,String Fathername,String FatherPhone)throws IOException ,InterruptedException {
+        ActionClass actionClass = new ActionClass(driver, extentTest);
+        actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
+        Thread.sleep(3000);
+        actionClass.clickOnObject(this.SidemenuStudentAddmissionclick);
+        actionClass.setValueinTextbox(this.Addmissionnumber, Addmissionnb);
+        actionClass.setValueinTextbox(this.RollnbFeild, Rollnumber);
+        actionClass.clickOnObject(this.SelectClassfeild);
+        actionClass.clickOnObject(this.SelectClassOption);
+        actionClass.clickOnObject(this.SelectSectionFeild);
+        actionClass.clickOnObject(this.SelectSectionOption);
+        actionClass.clickOnObject(this.FristNamefeild);
+        actionClass.setValueinTextbox(this.FristNamefeild, Fristname);
+        actionClass.clickOnObject(this.GenderFeild);
+       actionClass.clickOnObject(this.SelectGender);
+        JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver;
+        jsetaskscore.executeScript("scrollBy(0, 500)");
+        WebElement uploadElement = driver.findElement(By.id("file"));
+        uploadElement.sendKeys("/Applications/XAMPP/xamppfiles/htdocs/addwebsms-master-live/uploads/student_images/download.jpeg");
+           actionClass.clickOnObject(this.FatherNamefeild);
+            actionClass.setValueinTextbox(this.FatherNamefeild, Fathername);
+            actionClass.clickOnObject(this.FatherPhonenumber);
+            actionClass.setValueinTextbox(this.FatherPhonenumber, FatherPhone);
+             actionClass.clickOnObject(this.GardiunSelection);
+            actionClass.clickOnObject(this.Savebtn);
+        VerificationClass verificationClass = new VerificationClass(driver, extentTest);
+       verificationClass.verifyTextPresent(this.VerifyStudentAddmissionTitle, "Student added Successfully");
+
+    }
+        public void Importstudentcsv()throws InterruptedException,IOException{
         ActionClass actionClass=new ActionClass(driver,extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
         Thread.sleep(3000);
         actionClass.clickOnObject(this.SidemenuStudentAddmissionclick);
-        actionClass.setValueinTextbox(this.Addmissionnumber,Addmissionnb);
-        actionClass.clickOnObject(this.SelectClassfeild);
-        actionClass.clickOnObject(this.SelectClassOption);
+        actionClass.clickOnObject(this.ImportCsvbButton);
+        actionClass.clickOnObject(this.ImportCsvbSelectclass);
+        actionClass.clickOnObject(this.ImportCsvbSelectclassOption);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
+        actionClass.clickOnObject(this.SelectCsvFile);
+        WebElement uploadElement = driver.findElement(By.id("file"));
+        uploadElement.sendKeys("/Users/addweb/Desktop/Riddhi56456 - Riddhi.csv");
+        actionClass.clickOnObject(this.ImportStudentbutton);
+        actionClass.clickOnObject(this.ComfimmessageYes);
+        VerificationClass very=new VerificationClass(driver,extentTest);
+        very.verifyTextPresent(this.SuccessMegforCsv,"Students imported successfully.");
 
-    }
+
+
+        }
 }
+
 
