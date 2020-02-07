@@ -230,35 +230,15 @@ public class AddStudent{
             using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div[1]/div[1]"
     )
     private WebElement SuccessMegforCsv;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public AddStudent(WebDriver driver,ExtentTest test){
         this.driver = driver;
         this.extentTest = test;
         PageFactory.initElements(driver, this);
 
     }
+
+
+//    This script will take us to admission page
     public void AddStudent(String username1,String pwd)throws IOException,InterruptedException {
         ActionClass actionClass = new ActionClass(driver, extentTest);
         actionClass.clickOnObject(username);
@@ -272,6 +252,9 @@ public class AddStudent{
         verificationClass.verifyTextPresent(this.VerifyStudentAddmissionTitle, "Student Admission");
 
     }
+
+
+//    Test if all the mandatory field shows validations
     public void VeryFeildValidation()throws IOException,InterruptedException{
         ActionClass actionClass=new ActionClass(driver,extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
@@ -289,9 +272,10 @@ public class AddStudent{
         verificationClass.verifyTextPresent(this.FatherPhonevalidation,"The Father Phone field is required.");
         verificationClass.verifyTextPresent(this.GardianNamefeildvalidation,"The Guardian Name field is required.");
         verificationClass.verifyTextPresent(this.Gardianphonefeildvalidation,"The Guardian Phone field is required.");
-
-
     }
+
+
+//    Add a student
     public void SetudentAddmissionform(String Addmissionnb,String Rollnumber,String Fristname,String Fathername,String FatherPhone)throws IOException ,InterruptedException {
         ActionClass actionClass = new ActionClass(driver, extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
@@ -306,21 +290,24 @@ public class AddStudent{
         actionClass.clickOnObject(this.FristNamefeild);
         actionClass.setValueinTextbox(this.FristNamefeild, Fristname);
         actionClass.clickOnObject(this.GenderFeild);
-       actionClass.clickOnObject(this.SelectGender);
+        actionClass.clickOnObject(this.SelectGender);
         JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver;
         jsetaskscore.executeScript("scrollBy(0, 500)");
         WebElement uploadElement = driver.findElement(By.id("file"));
         uploadElement.sendKeys("/Applications/XAMPP/xamppfiles/htdocs/addwebsms-master-live/uploads/student_images/download.jpeg");
-           actionClass.clickOnObject(this.FatherNamefeild);
-            actionClass.setValueinTextbox(this.FatherNamefeild, Fathername);
-            actionClass.clickOnObject(this.FatherPhonenumber);
-            actionClass.setValueinTextbox(this.FatherPhonenumber, FatherPhone);
-             actionClass.clickOnObject(this.GardiunSelection);
-            actionClass.clickOnObject(this.Savebtn);
+        actionClass.clickOnObject(this.FatherNamefeild);
+        actionClass.setValueinTextbox(this.FatherNamefeild, Fathername);
+        actionClass.clickOnObject(this.FatherPhonenumber);
+        actionClass.setValueinTextbox(this.FatherPhonenumber, FatherPhone);
+        actionClass.clickOnObject(this.GardiunSelection);
+        actionClass.clickOnObject(this.Savebtn);
         VerificationClass verificationClass = new VerificationClass(driver, extentTest);
        verificationClass.verifyTextPresent(this.VerifyStudentAddmissionTitle, "Student added Successfully");
 
     }
+
+
+//    Import Student using CSV
         public void Importstudentcsv()throws InterruptedException,IOException{
         ActionClass actionClass=new ActionClass(driver,extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
@@ -339,9 +326,6 @@ public class AddStudent{
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
         very.verifyTextPresent(this.SuccessMegforCsv,"Students imported successfully.");
-
-
-
         }
 }
 
