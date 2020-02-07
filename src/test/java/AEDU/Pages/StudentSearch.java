@@ -28,10 +28,10 @@ public class StudentSearch {
     String url = "jdbc:mysql://localhost:6603/";
 //    //localDB
 //    String url = "jdbc:mysql://localhost:3306/";
-    String dbName = "AEDU";
+    String dbName = "aedu-dev1";
     String driver = "com.mysql.jdbc.Driver";
     String userName = "root";
-    String password = "root";
+    String password = "";
 
     Statement statement;
     ResultSet queryRs;
