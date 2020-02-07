@@ -10,11 +10,9 @@ import java.sql.SQLException;
 
 public class Student_Search extends Basecase {
 
-    // @Test
-// public void openstudentdetails() throws InterruptedException, IOException, SQLException{
-// SearchStudent searchStudent= new SearchStudent(driver);
-// searchStudent.searchStudents();
-// }
+
+
+//  Test if all the active students are listed.
     @Test
     public void searchStudent() throws InterruptedException, IOException, SQLException{
         logger = extent.createTest("Verify that Default Keyword Search details are matched with Database or not");
@@ -25,6 +23,8 @@ public class Student_Search extends Basecase {
         Thread.sleep(5000);
         driver.quit();
     }
+
+//    Test if all the active students of selected class are displayed.
     @Test
     public void SelectClassActive() throws InterruptedException, IOException, SQLException{
         logger = extent.createTest("Check If Students are Active And We filtered By Class only, Is records match with DB or not?");
@@ -35,6 +35,8 @@ public class Student_Search extends Basecase {
         Thread.sleep(5000);
         driver.quit();
     }
+
+//    Test if all the active students of selected class and section are displayed.
     @Test
     public void SelectClassSectionActive() throws InterruptedException, IOException, SQLException{
         logger = extent.createTest("Check If Students are Active And We filtered By Class with section & that records match with DB or not");
@@ -45,6 +47,8 @@ public class Student_Search extends Basecase {
         Thread.sleep(5000);
         driver.quit();
     }
+
+//    Test if all the inactive students of selected class and section are displayed.
     @Test
     public void SelectClassSectionInactive() throws InterruptedException, IOException, SQLException{
         logger = extent.createTest("Check If InActive Students are filtered By Class with section & that records match with DB or not");
@@ -55,6 +59,8 @@ public class Student_Search extends Basecase {
         Thread.sleep(5000);
         driver.quit();
     }
+
+//    Test if all the active students of selected class are displayed.
     @Test
     public void SelectClassInactive() throws InterruptedException, IOException, SQLException{
         logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
@@ -65,6 +71,8 @@ public class Student_Search extends Basecase {
         Thread.sleep(5000);
         driver.quit();
     }
+
+//    Test if the searched keyword data are listed.
     @Test
     public void SearchKeywordInAllReference() throws InterruptedException, IOException, SQLException{
         logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
