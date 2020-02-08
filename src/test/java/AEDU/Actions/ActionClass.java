@@ -116,7 +116,7 @@ public class ActionClass {
         DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_MM_SS");
         Date date = new Date();
         String datetextName = dateFormat.format(date);
-        String screenshotPath = "/var/lib/jenkins/workspace/R_AEDU/screenshot/" +testcaseName + "_"+datetextName + ".png" ;
+        String screenshotPath = "/var/lib/jenkins/workspace/R_AEDU/target/" +testcaseName + "_"+datetextName + ".png" ;
         TakesScreenshot scrShot = ((TakesScreenshot) driver);
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
         File DestFile = new File(screenshotPath);
