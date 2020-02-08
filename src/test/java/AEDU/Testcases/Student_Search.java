@@ -37,50 +37,50 @@ public class Student_Search extends Basecase {
     }
 
 //    Test if all the active students of selected class and section are displayed.
-    @Test
-    public void SelectClassSectionActive() throws InterruptedException, IOException, SQLException{
-        logger = extent.createTest("Check If Students are Active And We filtered By Class with section & that records match with DB or not");
-        StudentInformation SI = new StudentInformation(driver,logger);
-        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
-        StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckDataByClassAndSectionActive();
-        Thread.sleep(5000);
-        driver.quit();
-    }
-
-//    Test if all the inactive students of selected class and section are displayed.
-    @Test
-    public void SelectClassSectionInactive() throws InterruptedException, IOException, SQLException{
-        logger = extent.createTest("Check If InActive Students are filtered By Class with section & that records match with DB or not");
-        StudentInformation SI = new StudentInformation(driver,logger);
-        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
-        StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckDataByClassAndSectionInctive();
-        Thread.sleep(5000);
-        driver.quit();
-    }
-
-//    Test if all the active students of selected class are displayed.
-    @Test
-    public void SelectClassInactive() throws InterruptedException, IOException, SQLException{
-        logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
-        StudentInformation SI = new StudentInformation(driver,logger);
-        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
-        StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckDataByClassInactive();
-        Thread.sleep(5000);
-        driver.quit();
-    }
-
-//    Test if the searched keyword data are listed.
-    @Test
-    public void SearchKeywordInAllReference() throws InterruptedException, IOException, SQLException{
-        logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
-        StudentInformation SI = new StudentInformation(driver,logger);
-        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
-        StudentSearch searchStudent= new StudentSearch(driver,logger);
-        searchStudent.CheckForKeyWordSearch();
-        Thread.sleep(5000);
-        driver.quit();
-    }
+//    @Test
+//    public void SelectClassSectionActive() throws InterruptedException, IOException, SQLException{
+//        logger = extent.createTest("Check If Students are Active And We filtered By Class with section & that records match with DB or not");
+//        StudentInformation SI = new StudentInformation(driver,logger);
+//        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+//        StudentSearch searchStudent= new StudentSearch(driver,logger);
+//        searchStudent.CheckDataByClassAndSectionActive();
+//        Thread.sleep(5000);
+//        driver.quit();
+//    }
+//
+////    Test if all the inactive students of selected class and section are displayed.
+//    @Test
+//    public void SelectClassSectionInactive() throws InterruptedException, IOException, SQLException{
+//        logger = extent.createTest("Check If InActive Students are filtered By Class with section & that records match with DB or not");
+//        StudentInformation SI = new StudentInformation(driver,logger);
+//        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+//        StudentSearch searchStudent= new StudentSearch(driver,logger);
+//        searchStudent.CheckDataByClassAndSectionInctive();
+//        Thread.sleep(5000);
+//        driver.quit();
+//    }
+//
+////    Test if all the active students of selected class are displayed.
+//    @Test
+//    public void SelectClassInactive() throws InterruptedException, IOException, SQLException{
+//        logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
+//        StudentInformation SI = new StudentInformation(driver,logger);
+//        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+//        StudentSearch searchStudent= new StudentSearch(driver,logger);
+//        searchStudent.CheckDataByClassInactive();
+//        Thread.sleep(5000);
+//        driver.quit();
+//    }
+//
+////    Test if the searched keyword data are listed.
+//    @Test
+//    public void SearchKeywordInAllReference() throws InterruptedException, IOException, SQLException{
+//        logger = extent.createTest("Check If InActive Students are filtered By Class & that records match with DB or not");
+//        StudentInformation SI = new StudentInformation(driver,logger);
+//        SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+//        StudentSearch searchStudent= new StudentSearch(driver,logger);
+//        searchStudent.CheckForKeyWordSearch();
+//        Thread.sleep(5000);
+//        driver.quit();
+//    }
 }
