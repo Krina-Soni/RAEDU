@@ -1,12 +1,14 @@
 package AEDU.Pages;
 
 import AEDU.Utilities.DatabaseFunctions;
+import AEDU.Utilities.ReadWriteFunction;
 import AEDU.constants.CommonVar;
 import AEDU.Actions.VerificationClass;
 import AEDU.Actions.ActionClass;
 import AEDU.Pages.StudentInformation;
 import com.aventstack.extentreports.ExtentTest;
 import org.apache.bcel.generic.Select;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -308,7 +310,7 @@ public class AddStudent{
 
 
 //    Import Student using CSV
-        public void Importstudentcsv()throws InterruptedException,IOException{
+        public void Importstudentcsv() throws InterruptedException, IOException, InvalidFormatException {
         ActionClass actionClass=new ActionClass(driver,extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
         Thread.sleep(3000);
@@ -321,11 +323,13 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/Users/addweb/Desktop/Riddhi56456 - Riddhi.csv");
+        uploadElement.sendKeys("/home/addweb/IdeaProjects/RAEDU/test-output/CSV/Riddhi56456 - Riddhi.csv");
+
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
         very.verifyTextPresent(this.SuccessMegforCsv,"Students imported successfully.");
+        System.out.println(ReadWriteFunction.getRowCount("/home/addweb/IdeaProjects/RAEDU/test-output/CSV/Riddhi56456 - Riddhi.csv","Riddhi" ));
         }
 }
 

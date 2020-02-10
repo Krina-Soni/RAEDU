@@ -2,6 +2,7 @@ package AEDU.Testcases;
 
 import AEDU.Pages.AddStudent;
 import AEDU.Pages.StudentInformation;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -42,7 +43,7 @@ public class AddStudents extends Basecase {
     }
 
     @Test
-    public void ImortCsv() throws IOException, InterruptedException, SQLException {
+    public void ImportCsv() throws IOException, InterruptedException, SQLException, InvalidFormatException {
         logger = extent.createTest("Check the Add Student via CSV Functionality ");
         StudentInformation SI = new StudentInformation(driver, logger);
         SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");

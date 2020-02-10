@@ -22,8 +22,7 @@ public class ReportClass {
     @BeforeSuite
     public void initReport() throws SQLException
     {
-        htmlReporter = new ExtentHtmlReporter("/var/lib/jenkins/workspace/R_AEDU/AEDU_ScriptExecution_Report.html");
-      //  /var/lib/jenkins/workspace
+        htmlReporter = new ExtentHtmlReporter(System.getProperty("user.dir") + "/test-output/AEDU_ScriptExecution_Report.html");
         extent = new ExtentReports ();
         extent.attachReporter(htmlReporter);
         extent.setSystemInfo("Host Name", "AEDU");
