@@ -38,8 +38,6 @@ public class AddStudents extends Basecase {
         SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
         AddStudent Add = new AddStudent(driver, logger);
         Add.SetudentAddmissionform("2525", "53", "Johnny27", "Harper", "4978412542");
-        addddd
-
     }
 
     @Test
