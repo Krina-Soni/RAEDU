@@ -2,6 +2,7 @@ package AEDU.Pages;
 
 
 import AEDU.Actions.ActionClass;
+import AEDU.Pages.AddStudent;
 import AEDU.Actions.VerificationClass;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -31,7 +32,7 @@ public class StudentSearch {
     String dbName = "aedu-dev1";
     String driver = "com.mysql.jdbc.Driver";
     String userName = "root";
-    String password = "";
+    String password = "root";
 
     Statement statement;
     ResultSet queryRs;
@@ -140,11 +141,15 @@ public class StudentSearch {
             List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
             int ClassStudentsize = ListStudent.size();
             ArrayList listNames1 = new ArrayList();
+            ArrayList listNames2 = new ArrayList();
+            String s2 = "No data available in table";
+
             for (int i = 1; i <= ClassStudentsize; i++) {
-                String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
-                System.out.println("Value in list is: " + s);
+//                String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
+//                System.out.println("Value in list is: " + s);
                 listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
             }
+            System.out.println(listNames1);
 
             DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
             conn = DAB.connect();
@@ -373,7 +378,7 @@ public class StudentSearch {
 
     //Check By searching data in different field
 
-    public Object[] CheckForKeyWordSearch() throws IOException, SQLException, InterruptedException {
+    public Object[] CheckForKeyWordSearch() throws IOException, SQLException, InterruptedException{
 
         ActionClass actionClass = new ActionClass(this.driver1, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);

@@ -38,7 +38,7 @@ public class StudentInformation {
             how = How.ID,
             using = "form-username"
     )
-    private WebElement username;
+    private WebElement username1;
 
     @FindBy(
             how = How.XPATH,
@@ -78,9 +78,9 @@ public class StudentInformation {
     }
     public void loginWithCredentials(String username, String password) throws InterruptedException, IOException {
         ActionClass actionclass = new ActionClass(driver,extentTest);
-        this.username.click();
-        new CommonVar();
-        actionclass.setValueinTextbox(this.username, username);
+        actionclass.clickOnObject(username1);
+
+        actionclass.setValueinTextbox(this.username1, username);
         this.Fieldpassword.click();
         actionclass.setValueinTextbox(this.Fieldpassword, password);
         actionclass.clickOnObject(this.btn_submit);
@@ -93,9 +93,8 @@ public class StudentInformation {
     }
     public void loginWithCredentials1(String username, String password) throws InterruptedException, IOException {
         ActionClass actionclass = new ActionClass(driver,extentTest);
-        this.username.click();
-        new CommonVar();
-        actionclass.setValueinTextbox(this.username, username);
+        this.username1.click();
+        actionclass.setValueinTextbox(this.username1, username);
         this.Fieldpassword.click();
         actionclass.setValueinTextbox(this.Fieldpassword, password);
         actionclass.clickOnObject(this.btn_submit);
@@ -108,11 +107,9 @@ public class StudentInformation {
     }
     public void loginWithCredentials2(String username, String password ) throws InterruptedException, IOException {
         ActionClass actionclass = new ActionClass(driver,extentTest);
-        this.username.click();
-        new CommonVar();
-        actionclass.setValueinTextbox(this.username, username);
-        this.Fieldpassword.click();
-        new CommonVar();
+        actionclass.clickOnObject(username1);
+        actionclass.setValueinTextbox(this.username1, username);
+        actionclass.clickOnObject(Fieldpassword);
         actionclass.setValueinTextbox(this.Fieldpassword, password);
         actionclass.clickOnObject(this.btn_submit);
         VerificationClass verifyClass = new VerificationClass(driver,extentTest);

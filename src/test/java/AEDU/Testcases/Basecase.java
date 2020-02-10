@@ -16,7 +16,7 @@ public class Basecase extends ReportClass{
 //        ChromeOptions options=new ChromeOptions();
 //        options.addArguments("--remote-debugging-port=9222");
 //        options.addArguments("headless");
-//
+
         System.setProperty("Webdriver.chrome.driver",System.getProperty("user.dir")+"chromedriver");
         driver = new ChromeDriver();
         CommonVar common = new CommonVar();

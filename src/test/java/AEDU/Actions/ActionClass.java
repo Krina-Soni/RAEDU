@@ -116,7 +116,7 @@ public class ActionClass {
         DateFormat dateFormat = new SimpleDateFormat("yyyy_MM_dd_HH_MM_SS");
         Date date = new Date();
         String datetextName = dateFormat.format(date);
-        String screenshotPath = System.getProperty("user.dir") + "/test-output/screenshot/" +testcaseName + "_"+datetextName + ".png" ;
+        String screenshotPath = "/home/addweb/IdeaProjects/RAEDU/test-output/screenshot/" +testcaseName + "_"+datetextName + ".png" ;
         TakesScreenshot scrShot = ((TakesScreenshot) driver);
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
         File DestFile = new File(screenshotPath);
