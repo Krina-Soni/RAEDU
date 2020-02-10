@@ -343,7 +343,7 @@ public class AddStudent{
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         actionClass.clickOnObject(this.ClickOnStudentDetails);
         actionClass.clickOnObject(this.KeywordSearchtxt);
-        actionClass.setValueinTextbox(KeywordSearchtxt,"Riddhi");
+        actionClass.setValueinTextbox(KeywordSearchtxt,"2525");
         actionClass.clickOnObject(this.ClickOnbtnSearch);
 
         List<WebElement> ListStudent1 = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
