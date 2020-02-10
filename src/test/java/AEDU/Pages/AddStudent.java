@@ -1,15 +1,17 @@
 package AEDU.Pages;
 
 import AEDU.Utilities.DatabaseFunctions;
-import AEDU.Utilities.ReadWriteFunction;
+import AEDU.constants.CommonVar;
 import AEDU.Actions.VerificationClass;
 import AEDU.Actions.ActionClass;
+import AEDU.Pages.StudentInformation;
 import com.aventstack.extentreports.ExtentTest;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.bcel.generic.Select;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
@@ -20,52 +22,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class AddStudent{
     WebDriver driver;
     ExtentTest extentTest;
-    Connection conn = null;
-    // Docker
-    String url = "jdbc:mysql://localhost:6603/";
-    //    //localDB
-//    String url = "jdbc:mysql://localhost:3306/";
-    String dbName = "aedu-dev1";
-    String driver1 = "com.mysql.jdbc.Driver";
-    String userName = "root";
-    String password = "root";
-
-    Statement statement;
-    ResultSet queryRs;
-    ResultSet Qcount;
-    @FindBy(
-            how = How.XPATH,
-            using = "/html/body/div[1]/aside/div/section/ul[2]/li[1]/a/span"
-    )
-    private WebElement ClickOnStudentInformation;
-    @FindBy(
-            how = How.XPATH,
-            using = "//*[@id=\"sibe-box\"]/ul[2]/li[1]/ul/li[1]/a"
-    )
-    private WebElement ClickOnStudentDetails;
-
-    @FindBy(
-            how = How.XPATH,
-            using = "/html/body/div[1]/div[1]/section[2]/div/div/div/div[2]/div/div[2]/div/form/div[2]/div/button"
-    )
-    private WebElement ClickOnbtnSearch;
-    @FindBy(
-            how = How.XPATH,
-            using = "/html/body/div/div/section[2]/div/div/div[1]/div[2]/div/div[2]/div/form/div[1]/div/input"
-
-    )
-    private WebElement KeywordSearchtxt;
-
     @FindBy(how = How.XPATH,
             using = "//*[@id=\"form-username\"]\n")
     private WebElement username;
-
     @FindBy(how = How.XPATH,
             using = "//*[@id=\"form-password\"]\n"
     )
@@ -264,6 +228,8 @@ public class AddStudent{
     @FindBy(
             how = How.XPATH,
             using = "/html/body/div[1]/div[1]/section[2]/div/div/div/form/div[1]/div[1]"
+
+
     )
     private WebElement SuccessMegforCsv;
     public AddStudent(WebDriver driver,ExtentTest test){
@@ -274,7 +240,7 @@ public class AddStudent{
     }
 
 
-//    This script will take us to admission page
+    //    This script will take us to admission page
     public void AddStudent(String username1,String pwd)throws IOException,InterruptedException {
         ActionClass actionClass = new ActionClass(driver, extentTest);
         actionClass.clickOnObject(username);
@@ -290,7 +256,7 @@ public class AddStudent{
     }
 
 
-//    Test if all the mandatory field shows validations
+    //    Test if all the mandatory field shows validations
     public void VeryFeildValidation()throws IOException,InterruptedException{
         ActionClass actionClass=new ActionClass(driver,extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
@@ -311,8 +277,8 @@ public class AddStudent{
     }
 
 
-//    Add a student
-    public void SetudentAddmissionform(String Addmissionnb, String Rollnumber, String Fristname, String Fathername, String FatherPhone) throws IOException, InterruptedException, SQLException {
+    //    Add a student
+    public void SetudentAddmissionform(String Addmissionnb,String Rollnumber,String Fristname,String Fathername,String FatherPhone)throws IOException ,InterruptedException {
         ActionClass actionClass = new ActionClass(driver, extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
         Thread.sleep(3000);
@@ -336,60 +302,15 @@ public class AddStudent{
         actionClass.clickOnObject(this.FatherPhonenumber);
         actionClass.setValueinTextbox(this.FatherPhonenumber, FatherPhone);
         actionClass.clickOnObject(this.GardiunSelection);
-        String Admissionnumber = Addmissionnumber.getText();
         actionClass.clickOnObject(this.Savebtn);
         VerificationClass verificationClass = new VerificationClass(driver, extentTest);
-       verificationClass.verifyTextPresent(this.VerifyStudentAddmissionTitle, "Student added Successfully");
-        actionClass.clickOnObject(this.ClickOnStudentInformation);
-        actionClass.clickOnObject(this.ClickOnStudentDetails);
-        actionClass.clickOnObject(this.KeywordSearchtxt);
-        actionClass.setValueinTextbox(KeywordSearchtxt,"2525");
-        actionClass.clickOnObject(this.ClickOnbtnSearch);
-
-        List<WebElement> ListStudent1 = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
-        int listsize = ListStudent1.size();
-        ArrayList<String> KeywordListF = new ArrayList<String>();
-        for (int i = 1; i <= listsize; i++) {
-            String s = driver.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText();
-            System.out.println("Value in list is: " + s);
-            KeywordListF.add(driver.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText());
-        }
-        ArrayList<Integer> KeywordSearchIntegerList1= new ArrayList<Integer>(KeywordListF.size());
-        for(String myInt : KeywordListF ){
-            KeywordSearchIntegerList1.add(Integer.valueOf(myInt));
-        }
-        System.out.println(KeywordSearchIntegerList1);
-        DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
-        conn = DAB.connect();
-        statement = conn.createStatement();
-        System.out.println(KeywordSearchtxt.getText());
-        String B22 = KeywordSearchtxt.getText();
-        String searchstudentbykeyword = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive, students.admission_no FROM `student_session` INNER JOIN students ON student_session.student_id = students.id WHERE (students.firstname = 'riddhi' OR students.lastname = 'riddhi' OR students.guardian_name = 'riddhi' OR students.adhar_no = 'riddhi' OR students.samagra_id = 'riddhi' OR students.roll_no = 'riddhi' OR students.admission_no = 'riddhi') AND student_session.session_id='15' ORDER BY students.admission_no ASC";
-        ResultSet queryRs7 = statement.executeQuery(searchstudentbykeyword);
-        ArrayList<String> KeywordList = new ArrayList<String>();
-        while (queryRs7.next()) {
-            String s1 = null;
-            s1 = queryRs7.getString("students.admission_no");
-            System.out.println("Admission no. is " + s1);
-            KeywordList.add(queryRs7.getString("students.admission_no"));
-        }
-        ArrayList<Integer> KeywordSearchIntegerList= new ArrayList<Integer>(KeywordList.size());
-        for(String myInt : KeywordList ){
-            KeywordSearchIntegerList.add(Integer.valueOf(myInt));
-        }
-        Collections.sort(KeywordSearchIntegerList);
-        System.out.println(KeywordSearchIntegerList);
-        System.out.println(KeywordList.equals(KeywordListF));
-        actionClass.CompareList(KeywordSearchIntegerList, KeywordSearchIntegerList1);
-
-        actionClass.captureScreen("Default Keyword search");
+        verificationClass.verifyTextPresent(this.VerifyStudentAddmissionTitle, "Student added Successfully");
 
     }
 
 
-
-//    Import Student using CSV
-        public void Importstudentcsv() throws InterruptedException, IOException, InvalidFormatException {
+    //    Import Student using CSV
+    public void Importstudentcsv()throws InterruptedException,IOException{
         ActionClass actionClass=new ActionClass(driver,extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
         Thread.sleep(3000);
@@ -402,14 +323,120 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/home/addweb/IdeaProjects/RAEDU/test-output/CSV/Riddhi56456 - Riddhi.csv");
-
+        uploadElement.sendKeys("/Users/addweb/Desktop/Riddhi56456 - Riddhi.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
         very.verifyTextPresent(this.SuccessMegforCsv,"Students imported successfully.");
-        System.out.println(ReadWriteFunction.getRowCount("/home/addweb/IdeaProjects/RAEDU/test-output/CSV/Riddhi56456 - Riddhi.csv","Riddhi" ));
-        }
-}
+    }
+    //Import Student validations
+    public void ImportCsvAddmissionFeildValidation()throws IOException,InterruptedException{
+        ActionClass actionClass=new ActionClass(driver,extentTest);
+        actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
+        Thread.sleep(3000);
+        actionClass.clickOnObject(this.SidemenuStudentAddmissionclick);
+        actionClass.clickOnObject(this.ImportCsvbButton);
+        actionClass.clickOnObject(this.ImportCsvbSelectclass);
+        actionClass.clickOnObject(this.ImportCsvbSelectclassOption);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
+        actionClass.clickOnObject(this.SelectCsvFile);
+        WebElement uploadElement = driver.findElement(By.id("file"));
+        uploadElement.sendKeys("/Users/addweb/Desktop/Addmission feild validation - Addmission feild validation.csv");
+        actionClass.clickOnObject(this.ImportStudentbutton);
+        actionClass.clickOnObject(this.ComfimmessageYes);
+        VerificationClass very=new VerificationClass(driver,extentTest);
+        very.verifyTextPresent(this.SuccessMegforCsv,"Please enter admission number for the Roll no. 135");
+        //unique value
+        actionClass.clickOnObject(this.ImportCsvbSelectclass);
+        actionClass.clickOnObject(this.ImportCsvbSelectclassOption);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
+        actionClass.clickOnObject(this.SelectCsvFile);
+        WebElement uploadElement1 = driver.findElement(By.id("file"));
+        uploadElement1.sendKeys("/Users/addweb/Desktop/Addmission feild unique validation - Addmission feild validation.csv");
+        actionClass.clickOnObject(this.ImportStudentbutton);
+        actionClass.clickOnObject(this.ComfimmessageYes);
+        very.verifyTextPresent(this.SuccessMegforCsv,"Please Enter Unique Admission No.For the Roll no.135");
 
+    }
+    //Frist Name feild Validation
+    public void FristNameCsv()throws InterruptedException,InterruptedException{
+        ActionClass actionClass=new ActionClass(driver,extentTest);
+        actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
+        Thread.sleep(3000);
+        actionClass.clickOnObject(this.SidemenuStudentAddmissionclick);
+        actionClass.clickOnObject(this.ImportCsvbButton);
+        actionClass.clickOnObject(this.ImportCsvbSelectclass);
+        actionClass.clickOnObject(this.ImportCsvbSelectclassOption);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
+        actionClass.clickOnObject(this.SelectCsvFile);
+        WebElement uploadElement = driver.findElement(By.id("file"));
+        uploadElement.sendKeys("/Users/addweb/Desktop/Frist name validation - Fristname feild validation.csv");
+        actionClass.clickOnObject(this.ImportStudentbutton);
+        actionClass.clickOnObject(this.ComfimmessageYes);
+        VerificationClass very=new VerificationClass(driver,extentTest);
+        very.verifyTextPresent(this.SuccessMegforCsv,"Please enter firstname for the Roll no. 136");
+    }
+
+    //Father's name feild validation
+    public void ImportCsvFathername()throws InterruptedException,IOException{
+        ActionClass actionClass=new ActionClass(driver,extentTest);
+        actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
+        Thread.sleep(3000);
+        actionClass.clickOnObject(this.SidemenuStudentAddmissionclick);
+        actionClass.clickOnObject(this.ImportCsvbButton);
+        actionClass.clickOnObject(this.ImportCsvbSelectclass);
+        actionClass.clickOnObject(this.ImportCsvbSelectclassOption);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
+        actionClass.clickOnObject(this.SelectCsvFile);
+        WebElement uploadElement = driver.findElement(By.id("file"));
+        uploadElement.sendKeys("/Users/addweb/Desktop/Rollnb1  - STD-7 - STD-7.csv");
+        actionClass.clickOnObject(this.ImportStudentbutton);
+        actionClass.clickOnObject(this.ComfimmessageYes);
+        VerificationClass very=new VerificationClass(driver,extentTest);
+        very.verifyTextPresent(this.SuccessMegforCsv,"Please enter father's name for the Roll no . 136");
+    }
+    //Father'phone number
+    public void ImportCsvFatherphone()throws InterruptedException,IOException{
+        ActionClass actionClass=new ActionClass(driver,extentTest);
+        actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
+        Thread.sleep(3000);
+        actionClass.clickOnObject(this.SidemenuStudentAddmissionclick);
+        actionClass.clickOnObject(this.ImportCsvbButton);
+        actionClass.clickOnObject(this.ImportCsvbSelectclass);
+        actionClass.clickOnObject(this.ImportCsvbSelectclassOption);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
+        actionClass.clickOnObject(this.SelectCsvFile);
+        WebElement uploadElement = driver.findElement(By.id("file"));
+        uploadElement.sendKeys("/Users/addweb/Desktop/Fatherphone  - STD-7 - STD-7.csv");
+        actionClass.clickOnObject(this.ImportStudentbutton);
+        actionClass.clickOnObject(this.ComfimmessageYes);
+        VerificationClass very=new VerificationClass(driver,extentTest);
+        very.verifyTextPresent(this.SuccessMegforCsv,"Please enter father's phone for the Roll no . 136");
+        //Phone number validation
+        actionClass.clickOnObject(this.ImportCsvbSelectclass);
+        actionClass.clickOnObject(this.ImportCsvbSelectclassOption);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSection);
+        actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
+        actionClass.clickOnObject(this.SelectCsvFile);
+        WebElement uploadElement1 = driver.findElement(By.id("file"));
+        uploadElement1.sendKeys("/Users/addweb/Desktop/Fatherphone1  - STD-7 - STD-7.csv");
+        actionClass.clickOnObject(this.ImportStudentbutton);
+        actionClass.clickOnObject(this.ComfimmessageYes);
+        VerificationClass very1=new VerificationClass(driver,extentTest);
+        very.verifyTextPresent(this.SuccessMegforCsv,"Father's phone is not valid for the Roll no. 136");
+
+    }
+
+}
 

@@ -2,7 +2,6 @@ package AEDU.Testcases;
 
 import AEDU.Pages.AddStudent;
 import AEDU.Pages.StudentInformation;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -43,11 +42,45 @@ public class AddStudents extends Basecase {
     }
 
     @Test
-    public void ImportCsv() throws IOException, InterruptedException, SQLException, InvalidFormatException {
+    public void ImortCsv() throws IOException, InterruptedException, SQLException {
         logger = extent.createTest("Check the Add Student via CSV Functionality ");
         StudentInformation SI = new StudentInformation(driver, logger);
         SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
         AddStudent Import = new AddStudent(driver, logger);
         Import.Importstudentcsv();
+    }
+    @Test
+    public void ImportCsvAddmission()throws IOException,InterruptedException,SQLException{
+        logger=extent.createTest("Check Addmission feild validation In Importcsv");
+        StudentInformation SI = new StudentInformation(driver, logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
+        AddStudent Addmission=new AddStudent(driver,logger);
+        Addmission.ImportCsvAddmissionFeildValidation();
+
+    }
+    @Test
+    public void ImportCsvFristname()throws IOException,InterruptedException{
+        logger=extent.createTest("Check Fristname feild validation In Importcsv");
+        StudentInformation SI = new StudentInformation(driver, logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
+        AddStudent Fristname=new AddStudent(driver,logger);
+        Fristname.FristNameCsv();
+
+    }
+    @Test
+    public void ImportCsvFathersname()throws IOException,InterruptedException{
+        logger=extent.createTest("Check Fristname feild validation In Importcsv");
+        StudentInformation SI = new StudentInformation(driver, logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
+        AddStudent Fathername=new AddStudent(driver,logger);
+        Fathername.ImportCsvFathername();
+    }
+    @Test
+    public void ImportCsvPhonenumber()throws IOException,InterruptedException{
+        logger=extent.createTest("Check Fristname feild validation In Importcsv");
+        StudentInformation SI = new StudentInformation(driver, logger);
+        SI.loginWithCredentials2("addwebsolution@gmail.com", "addweb123");
+        AddStudent Phonenumber=new AddStudent(driver,logger);
+        Phonenumber.ImportCsvFatherphone();
     }
 }
