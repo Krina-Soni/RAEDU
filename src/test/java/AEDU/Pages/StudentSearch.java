@@ -2,6 +2,7 @@ package AEDU.Pages;
 
 
 import AEDU.Actions.ActionClass;
+import AEDU.Pages.AddStudent;
 import AEDU.Actions.VerificationClass;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -377,7 +378,7 @@ public class StudentSearch {
 
     //Check By searching data in different field
 
-    public Object[] CheckForKeyWordSearch() throws IOException, SQLException, InterruptedException {
+    public Object[] CheckForKeyWordSearch() throws IOException, SQLException, InterruptedException{
 
         ActionClass actionClass = new ActionClass(this.driver1, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
