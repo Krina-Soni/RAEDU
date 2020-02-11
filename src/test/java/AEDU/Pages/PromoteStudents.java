@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
@@ -22,6 +23,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -111,7 +113,7 @@ public class PromoteStudents {
 
     @FindBy(
             how = How.XPATH,
-            using = "//*[@id=\"class_id\"]/option[7]"
+            using = "//*[@id=\"class_id\"]/option[3]"
     )
     private WebElement selectoption;
 
@@ -163,7 +165,11 @@ public class PromoteStudents {
             using = "/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[2]/td"
     )
     private WebElement Nodatabehavormatch;
-
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[2]/div/div/div[3]/button[1]"
+    )
+    private WebElement Savebtnpopup;
 
 
 
@@ -257,8 +263,8 @@ public class PromoteStudents {
             DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
             conn = DAB.connect();
             statement = conn.createStatement();
-            String students = "SELECT `classes`.`id` AS `class_id`, `student_session`.`id` AS `student_session_id`, `students`.`id`, `classes`.`class`, `sections`.`id` AS `section_id`, `sections`.`section`, `students`.`id`, `students`.`admission_no`, `students`.`roll_no`, `students`.`admission_date`, `students`.`firstname`, `students`.`lastname`, `students`.`image`, `students`.`mobileno`, `students`.`email`, `students`.`state`, `students`.`city`, `students`.`pincode`, `students`.`religion`, `students`.`dob`, `students`.`current_address`, `students`.`permanent_address`, \n" +
-                    " `students`.`adhar_no`, `students`.`samagra_id`, `students`.`bank_account_no`, `students`.`bank_name`, `students`.`ifsc_code`, `students`.`guardian_name`, `students`.`guardian_relation`, `students`.`guardian_phone`, `students`.`guardian_address`, `students`.`is_active`, `students`.`is_inactive`, `students`.`created_at`, `students`.`updated_at`, `students`.`father_name`, `students`.`rte`, `students`.`gender` FROM `students` JOIN `student_session` ON `student_session`.`student_id` = `students`.`id` JOIN `classes` ON `student_session`.`class_id` = `classes`.`id` JOIN `sections` ON `sections`.`id` = `student_session`.`section_id` LEFT JOIN `categories` ON `students`.`category_id` = `categories`.`id` WHERE `student_session`.`session_id` = '15' AND `student_session`.`class_id` = '23' AND `student_session`.`is_inactive` = 'no' AND `student_session`.`section_id` = 7 AND students.id NOT IN( SELECT student_id FROM promot_student ) ORDER BY `students`.`id`";
+            String students = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive, classes.class, students.admission_no FROM `student_session` INNER JOIN students ON student_session.student_id = students.id INNER JOIN classes ON student_session.class_id=classes.id \n" +
+                    "WHERE student_session.session_id='15' AND classes.class='9th' AND student_session.is_inactive='no' AND students.id  NOT IN (SELECT student_id FROM promot_student)";
             queryRs = statement.executeQuery(students);
             ArrayList listNames = new ArrayList();
 
@@ -283,7 +289,10 @@ public class PromoteStudents {
 
         return new Object[0];
     }
-    public void Promoteinsession()throws InterruptedException,IOException{
+
+
+//    Promote the student into a different class
+    public void Promoteinsession() throws InterruptedException, IOException, SQLException {
         ActionClass actionClass=new ActionClass(this.driver1,extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         Thread.sleep(3000);
@@ -299,12 +308,53 @@ public class PromoteStudents {
         actionClass.clickOnObject(this.SelectclassforPromote);
         actionClass.clickOnObject(this.PromoteSession);
         actionClass.clickOnObject(this.SelectsectionforPromote);
+
+
+        Thread.sleep(3000);
+        List<WebElement> ListPromoteStudent = driver1.findElements(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr"));
+        int listsize = ListPromoteStudent.size();
+        ArrayList <String>  PromoteStudentList = new ArrayList<String>();
+        for(int i=2; i<=listsize; i++){
+            String s = driver1.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i +"]/td[1]")).getText();
+            System.out.println("Values in the list: "+ s);
+            PromoteStudentList.add(driver1.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i +"]/td[1]")).getText());
+        }
+        ArrayList<Integer> PromoteStudentListIntegerList= new ArrayList<Integer>(PromoteStudentList.size());
+        for(String myInt : PromoteStudentList ){
+            PromoteStudentListIntegerList.add(Integer.valueOf(myInt));
+        }
+        System.out.println(PromoteStudentListIntegerList);
+        Thread.sleep(3000);
+
         actionClass.clickOnObject(this.Promotebtn);
+        actionClass.clickOnObject(this.Savebtnpopup);
+        Thread.sleep(3000);
+
         VerificationClass very = new VerificationClass(driver1, extentTest);
         very.verifyTextPresent(this.classfeildvalidation, "No Record Found");
 
+        DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
+        conn = DAB.connect();
+        statement = conn.createStatement();
+        String students = "SELECT student_session.id, student_session.session_id, students.firstname, students.lastname, students.is_active, students.is_inactive, classes.class, students.admission_no, sections.id FROM `student_session` INNER JOIN students ON student_session.student_id = students.id INNER JOIN classes ON student_session.class_id = classes.id INNER JOIN sections ON student_session.section_id=sections.id WHERE student_session.session_id = '15' AND classes.class = '9th' AND sections.id= 10 AND student_session.is_inactive = 'no' AND students.id NOT IN( SELECT student_id FROM promot_student )";
+        queryRs = statement.executeQuery(students);
+        ArrayList<String> ListPromoteStudent1 = new ArrayList<String>();
 
-
+        while (queryRs.next()) {
+            String s1 = null;
+            s1 = queryRs.getString("students.admission_no");
+            System.out.println("Admission no. is " + s1);
+            ListPromoteStudent1.add(queryRs.getString("students.admission_no"));
+        }
+        ArrayList<Integer> PromoteStudentListIntegerList1= new ArrayList<Integer>(ListPromoteStudent1.size());
+        for(String myInt : ListPromoteStudent1 ){
+            PromoteStudentListIntegerList1.add(Integer.valueOf(myInt));
+        }
+//        Collections.sort(PromoteStudentListIntegerList1);
+        System.out.println(PromoteStudentListIntegerList1);
+        System.out.println(PromoteStudentListIntegerList1.equals(PromoteStudentListIntegerList));
+//        System.out.println(listNames.equals(listNames1));
+        actionClass.CompareList(PromoteStudentListIntegerList,PromoteStudentListIntegerList1);
 
     }
 }
