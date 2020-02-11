@@ -286,6 +286,7 @@ public class AddStudent{
         actionClass.setValueinTextbox(this.Addmissionnumber, Addmissionnb);
         actionClass.setValueinTextbox(this.RollnbFeild, Rollnumber);
         actionClass.clickOnObject(this.SelectClassfeild);
+
         actionClass.clickOnObject(this.SelectClassOption);
         actionClass.clickOnObject(this.SelectSectionFeild);
         actionClass.clickOnObject(this.SelectSectionOption);
