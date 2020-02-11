@@ -62,7 +62,15 @@ public class PromoteStudent extends Basecase {
         promoteStudents3.listdata();
 
     }
+    @Test
+    public void PromoteinNextsession()throws InterruptedException,IOException{
+      logger=extent.createTest("Promote Student in thenext Session");
+      StudentInformation SI = new StudentInformation(driver,logger);
+      SI.loginWithCredentials2("addwebsolution@gmail.com","addweb123");
+      PromoteStudents Nextsession=new PromoteStudents(driver,logger);
+      Nextsession.Promoteinsession();
 
+    }
 }
 
 

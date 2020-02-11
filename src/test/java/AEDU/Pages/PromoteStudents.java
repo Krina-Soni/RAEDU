@@ -285,6 +285,14 @@ public class PromoteStudents {
     }
     public void Promoteinsession()throws InterruptedException,IOException{
         ActionClass actionClass=new ActionClass(this.driver1,extentTest);
+        actionClass.clickOnObject(this.ClickOnStudentInformation);
+        Thread.sleep(3000);
+        actionClass.clickOnObject(this.ClickOnPromoteStudent);
+        actionClass.clickOnObject(this.classfeild);
+        actionClass.clickOnObject(this.selectoption);
+        actionClass.clickOnObject(this.sectionfeild);
+        actionClass.clickOnObject(this.selectoptionforsection);
+        actionClass.clickOnObject(this.searchbtn);
         actionClass.clickOnObject(this.Promoteinsessionclcik);
         actionClass.clickOnObject(this.SelectSession);
         actionClass.clickOnObject(this.PromoteClass);
