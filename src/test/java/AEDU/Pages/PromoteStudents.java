@@ -170,6 +170,56 @@ public class PromoteStudents {
             using = "/html/body/div[1]/div[2]/div/div/div[3]/button[1]"
     )
     private WebElement Savebtnpopup;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[2]/td[6]/div[2]/label/input"
+    )
+    private WebElement Leavbtn;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/aside/div/section/ul[2]/li[1]/ul/li[6]/a"
+    )
+    private WebElement LeavingStudentSidemenu;
+    @FindBy(
+            how = How.XPATH,
+            using = "  //*[@id=\"class_id\"]"
+    )
+    private WebElement LeavingStudentclass;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"section_id\"]"
+    )
+    private WebElement LeavingStudentSection;
+    @FindBy(
+            how = How.XPATH,
+            using = "//*[@id=\"class_id\"]/option[3]"
+    )
+    private WebElement LeavingStudentSelectclass;
+    @FindBy(
+            how = How.XPATH,
+            using = " //*[@id=\"section_id\"]/option[2]"
+    )
+    private WebElement LeavingStudentSelectSection;
+    @FindBy(
+            how = How.XPATH,
+            using = "  /html/body/div[1]/div[1]/section[2]/div/div[1]/div/div[2]/div/div[1]/div/form/div[3]/div/button"
+    )
+    private WebElement LeavingSearch;
+    @FindBy(
+            how = How.XPATH,
+            using = "/html/body/div[1]/div[1]/section[2]/div/div[2]/div/div[2]/div/div[2]/label/input"
+    )
+    private WebElement SearchFeild;
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -355,6 +405,43 @@ public class PromoteStudents {
         System.out.println(PromoteStudentListIntegerList1.equals(PromoteStudentListIntegerList));
 //        System.out.println(listNames.equals(listNames1));
         actionClass.CompareList(PromoteStudentListIntegerList,PromoteStudentListIntegerList1);
+
+    }
+    public void LeaveStudent()throws InterruptedException,IOException{
+        ActionClass actionClass=new ActionClass(this.driver1,extentTest);
+        actionClass.clickOnObject(this.ClickOnStudentInformation);
+        Thread.sleep(3000);
+        actionClass.clickOnObject(this.ClickOnPromoteStudent);
+        actionClass.clickOnObject(this.classfeild);
+        actionClass.clickOnObject(this.selectoption);
+        actionClass.clickOnObject(this.sectionfeild);
+        actionClass.clickOnObject(this.selectoptionforsection);
+        actionClass.clickOnObject(this.searchbtn);
+        actionClass.clickOnObject(this.Promoteinsessionclcik);
+        actionClass.clickOnObject(this.SelectSession);
+        actionClass.clickOnObject(this.PromoteClass);
+        actionClass.clickOnObject(this.SelectclassforPromote);
+        actionClass.clickOnObject(this.PromoteSession);
+        actionClass.clickOnObject(this.SelectsectionforPromote);
+        JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver1;
+        jsetaskscore.executeScript("scrollBy(0, 150)");
+        actionClass.clickOnObject(this.Leavbtn);
+         actionClass.clickOnObject(this.Promotebtn);
+         actionClass.clickOnObject(this.Savebtnpopup);
+         Thread.sleep(100);
+         actionClass.clickOnObject(this.LeavingStudentSidemenu);
+         actionClass.clickOnObject(this.LeavingStudentclass);
+         actionClass.clickOnObject(this.LeavingStudentSelectclass);
+         actionClass.clickOnObject(this.LeavingStudentSection);
+         actionClass.clickOnObject(this.LeavingStudentSelectSection);
+         actionClass.clickOnObject(this.LeavingSearch);
+         actionClass.clickOnObject(this.SearchFeild);
+         actionClass.setValueinTextbox(this.SearchFeild,"12220");
+
+
+
+
+
 
     }
 }
