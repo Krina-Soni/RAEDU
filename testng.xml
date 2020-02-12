@@ -10,7 +10,6 @@
             <class name="AEDU.Testcases.PromoteStudent"/>
             <class name="AEDU.Testcases.AddStudents"/>
             <class name="AEDU.Testcases.Category"/>
-
         </classes>
     </test>
 </suite>

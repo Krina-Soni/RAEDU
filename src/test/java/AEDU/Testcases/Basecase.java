@@ -1,5 +1,6 @@
 package AEDU.Testcases;
 import AEDU.constants.CommonVar;
+import org.junit.Before;
 import org.testng.annotations.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,12 +15,12 @@ public class Basecase extends ReportClass {
     /*
  Below method will execute before each testcase.
      */
-    @BeforeMethod
+    @Before
     public void initialize() throws SQLException {
-        System.setProperty("Webdriver.chrome.driver", System.getProperty("user.dir") + "chromedriver");
+//        System.setProperty("Webdriver.chrome.driver", System.getProperty("user.dir") + "chromedriver");
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("headless");
+//        options.addArguments("--remote-debugging-port=9222");
+//        options.addArguments("headless");
 
         //System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\chromedriver.exe" );
         driver = new ChromeDriver(options);
