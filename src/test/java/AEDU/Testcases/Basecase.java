@@ -7,17 +7,17 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import AEDU.Reports.ReportClass;
 import java.sql.SQLException;
 
-public class Basecase extends ReportClass{
+public class Basecase extends ReportClass {
+
     public static WebDriver driver;
 
     /*
  Below method will execute before each testcase.
      */
     @BeforeMethod
-    public void initialize() throws SQLException
-    {
-        System.setProperty("Webdriver.chrome.driver",System.getProperty("user.dir")+"chromedriver");
-        ChromeOptions options=new ChromeOptions();
+    public void initialize() throws SQLException {
+        System.setProperty("Webdriver.chrome.driver", System.getProperty("user.dir") + "chromedriver");
+        ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-debugging-port=9222");
         options.addArguments("headless");
 
@@ -31,4 +31,12 @@ public class Basecase extends ReportClass{
         driver.manage().window().maximize();
     }
 
+
+    /*
+ Below method will execute after each testcase.
+     */
+    @AfterMethod
+    public void tearDown() {
+        driver.quit();
+    }
 }

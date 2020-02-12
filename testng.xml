@@ -7,6 +7,10 @@
             <class name="AEDU.Testcases.StudentAdmission"/>
             <class name="AEDU.Testcases.Connection"/>
             <class name="AEDU.Testcases.Student_Search"/>
+            <class name="AEDU.Testcases.PromoteStudent"/>
+            <class name="AEDU.Testcases.AddStudents"/>
+            <class name="AEDU.Testcases.Category"/>
+
         </classes>
     </test>
 </suite>
