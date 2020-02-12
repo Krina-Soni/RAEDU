@@ -36,8 +36,8 @@ public class Basecase extends ReportClass {
     /*
  Below method will execute after each testcase.
      */
-    @AfterMethod
-    public void tearDown() {
-        driver.quit();
-    }
+//    @AfterMethod
+//    public void tearDown() {
+//        driver.quit();
+//    }
 }
