@@ -236,7 +236,6 @@ public class AddStudent{
         this.driver = driver;
         this.extentTest = test;
         PageFactory.initElements(driver, this);
-
     }
 
 
@@ -252,6 +251,8 @@ public class AddStudent{
         actionClass.clickOnObject(this.SidemenuStudentAddmissionclick);
         VerificationClass verificationClass = new VerificationClass(this.driver, extentTest);
         verificationClass.verifyTextPresent(this.VerifyStudentAddmissionTitle, "Student Admission");
+        actionClass.captureScreen("AddStudent");
+        driver.quit();
 
     }
 
@@ -267,13 +268,15 @@ public class AddStudent{
         actionClass.clickOnObject(this.Savebtn);
         VerificationClass verificationClass=new VerificationClass(this.driver,extentTest);
         verificationClass.verifyTextPresent(this.Addmissionfeildvalidation,"The Admission No. field is required.");
-        verificationClass.verifyTextPresent(this.Sectionfeildvalidation,"The Class field is required.");
+        verificationClass.verifyTextPresent(this.Sectionfeildvalidation,"The Section field is required.");
         verificationClass.verifyTextPresent(this.Fristnamefeildvalidation,"The First Name field is required.");
         verificationClass.verifyTextPresent(this.Genderfeildvalidation,"The Gender field is required.");
         verificationClass.verifyTextPresent(this.FatherNamefeildvalidation,"The Father Name field is required.");
         verificationClass.verifyTextPresent(this.FatherPhonevalidation,"The Father Phone field is required.");
         verificationClass.verifyTextPresent(this.GardianNamefeildvalidation,"The Guardian Name field is required.");
         verificationClass.verifyTextPresent(this.Gardianphonefeildvalidation,"The Guardian Phone field is required.");
+        actionClass.captureScreen("VeryFeildValidation");
+        driver.quit();
     }
 
 
@@ -297,7 +300,7 @@ public class AddStudent{
         JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver;
         jsetaskscore.executeScript("scrollBy(0, 500)");
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/Applications/XAMPP/xamppfiles/htdocs/addwebsms-master-live/uploads/student_images/download.jpeg");
+        uploadElement.sendKeys("/Users/addweb/Desktop/download.jpeg");
         actionClass.clickOnObject(this.FatherNamefeild);
         actionClass.setValueinTextbox(this.FatherNamefeild, Fathername);
         actionClass.clickOnObject(this.FatherPhonenumber);
@@ -306,7 +309,8 @@ public class AddStudent{
         actionClass.clickOnObject(this.Savebtn);
         VerificationClass verificationClass = new VerificationClass(driver, extentTest);
         verificationClass.verifyTextPresent(this.VerifyStudentAddmissionTitle, "Student added Successfully");
-
+        actionClass.captureScreen("SetudentAddmissionform");
+        driver.quit();
     }
 
 
@@ -324,12 +328,15 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/Users/addweb/Desktop/Riddhi56456 - Riddhi.csv");
+        uploadElement.sendKeys("/Users/addweb/Documents/untitled/Riddhi56456 - Riddhi.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
         very.verifyTextPresent(this.SuccessMegforCsv,"Students imported successfully.");
+        actionClass.captureScreen("Importstudentcsv");
+        driver.quit();
     }
+
     //Import Student validations
     public void ImportCsvAddmissionFeildValidation()throws IOException,InterruptedException{
         ActionClass actionClass=new ActionClass(driver,extentTest);
@@ -344,7 +351,7 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/Users/addweb/Desktop/Addmission feild validation - Addmission feild validation.csv");
+        uploadElement.sendKeys("/Users/addweb/Documents/untitled/Addmission feild validation - Addmission feild validation.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
@@ -357,14 +364,16 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement1 = driver.findElement(By.id("file"));
-        uploadElement1.sendKeys("/Users/addweb/Desktop/Addmission feild unique validation - Addmission feild validation.csv");
+        uploadElement1.sendKeys("/Users/addweb/Documents/untitled/Addmission feild unique validation - Addmission feild validation.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         very.verifyTextPresent(this.SuccessMegforCsv,"Please Enter Unique Admission No.For the Roll no.135");
-
+        actionClass.captureScreen("ImportCsvAddmissionFeildValidation");
+        driver.quit();
     }
+
     //Frist Name feild Validation
-    public void FristNameCsv()throws InterruptedException,InterruptedException{
+    public void FristNameCsv() throws InterruptedException, InterruptedException, IOException {
         ActionClass actionClass=new ActionClass(driver,extentTest);
         actionClass.clickOnObject(this.sidemenustudentinfomenuclick);
         Thread.sleep(3000);
@@ -377,11 +386,13 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/Users/addweb/Desktop/Frist name validation - Fristname feild validation.csv");
+        uploadElement.sendKeys("/Users/addweb/Documents/untitled/Frist name validation - Fristname feild validation.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
         very.verifyTextPresent(this.SuccessMegforCsv,"Please enter firstname for the Roll no. 136");
+        actionClass.captureScreen("FristNameCsv");
+        driver.quit();
     }
 
     //Father's name feild validation
@@ -398,12 +409,15 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/Users/addweb/Desktop/Rollnb1  - STD-7 - STD-7.csv");
+        uploadElement.sendKeys("/Users/addweb/Documents/untitled/Rollnb1  - STD-7 - STD-7.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
         very.verifyTextPresent(this.SuccessMegforCsv,"Please enter father's name for the Roll no . 136");
+        actionClass.captureScreen("ImportCsvFathername");
+        driver.quit();
     }
+
     //Father'phone number
     public void ImportCsvFatherphone()throws InterruptedException,IOException{
         ActionClass actionClass=new ActionClass(driver,extentTest);
@@ -418,7 +432,7 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement = driver.findElement(By.id("file"));
-        uploadElement.sendKeys("/Users/addweb/Desktop/Fatherphone  - STD-7 - STD-7.csv");
+        uploadElement.sendKeys("/Users/addweb/Documents/untitled/Fatherphone  - STD-7 - STD-7.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very=new VerificationClass(driver,extentTest);
@@ -431,13 +445,13 @@ public class AddStudent{
         actionClass.clickOnObject(this.ImportCsvbSelectSectionOption);
         actionClass.clickOnObject(this.SelectCsvFile);
         WebElement uploadElement1 = driver.findElement(By.id("file"));
-        uploadElement1.sendKeys("/Users/addweb/Desktop/Fatherphone1  - STD-7 - STD-7.csv");
+        uploadElement1.sendKeys("/Users/addweb/Documents/untitled/Fatherphone1  - STD-7 - STD-7.csv");
         actionClass.clickOnObject(this.ImportStudentbutton);
         actionClass.clickOnObject(this.ComfimmessageYes);
         VerificationClass very1=new VerificationClass(driver,extentTest);
         very.verifyTextPresent(this.SuccessMegforCsv,"Father's phone is not valid for the Roll no. 136");
-
+        actionClass.captureScreen("ImportCsvFatherphone");
+        driver.quit();
     }
-
 }
 
