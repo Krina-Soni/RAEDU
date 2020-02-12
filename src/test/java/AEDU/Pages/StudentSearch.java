@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 public class StudentSearch {
-    WebDriver driver1;
+    WebDriver driver;
     ExtentTest extentTest;
 
     Connection conn = null;
@@ -30,7 +30,7 @@ public class StudentSearch {
 //    //localDB
 //    String url = "jdbc:mysql://localhost:3306/";
     String dbName = "aedu-dev1";
-    String driver = "com.mysql.jdbc.Driver";
+    String driver1 = "com.mysql.jdbc.Driver";
     String userName = "root";
     String password = "root";
 
@@ -108,7 +108,7 @@ public class StudentSearch {
     private WebElement ClickonStatusInactive;
 
     public StudentSearch(WebDriver driver, ExtentTest test) {
-        this.driver1 = driver;
+        this.driver = driver;
         this.extentTest = test;
         PageFactory.initElements(driver, this);
         try {
@@ -128,7 +128,7 @@ public class StudentSearch {
 
     public Object[] CheckDataByClassActive() throws IOException, SQLException, InterruptedException {
 
-        ActionClass actionClass = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass = new ActionClass(this.driver, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         actionClass.clickOnObject(this.ClickOnStudentDetails);
         actionClass.clickOnObject(this.SelectClass);
@@ -138,7 +138,7 @@ public class StudentSearch {
         if (ClassValue.isSelected() == true) {
             //actionClass.clickOnObject(this.SectionValue);
             actionClass.clickOnObject(this.ClickOnSearch1);
-            List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
+            List<WebElement> ListStudent = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
             int ClassStudentsize = ListStudent.size();
             ArrayList listNames1 = new ArrayList();
             ArrayList listNames2 = new ArrayList();
@@ -147,7 +147,7 @@ public class StudentSearch {
             for (int i = 1; i <= ClassStudentsize; i++) {
 //                String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
 //                System.out.println("Value in list is: " + s);
-                listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
+                listNames1.add(driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
             }
             System.out.println(listNames1);
 
@@ -174,7 +174,7 @@ public class StudentSearch {
 
             return listNames.toArray();
         } else {
-            VerificationClass VerifyClass = new VerificationClass(driver1, extentTest);
+            VerificationClass VerifyClass = new VerificationClass(driver, extentTest);
             VerifyClass.verifyTextPresent(ClassValidation, "The Class field is required.");
         }
         return new Object[0];
@@ -184,7 +184,7 @@ public class StudentSearch {
 
     public Object[] CheckDataByClassAndSectionActive() throws IOException, SQLException, InterruptedException {
 
-        ActionClass actionClass = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass = new ActionClass(this.driver, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         actionClass.clickOnObject(this.ClickOnStudentDetails);
         actionClass.clickOnObject(this.SelectClass);
@@ -196,13 +196,13 @@ public class StudentSearch {
             actionClass.clickOnObject(this.SelectSection);
             actionClass.clickOnObject(this.SectionValue);
             actionClass.clickOnObject(this.ClickOnSearch1);
-            List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
+            List<WebElement> ListStudent = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
             int ClassStudentsize = ListStudent.size();
             ArrayList listNames1 = new ArrayList();
             for (int i = 1; i <= ClassStudentsize; i++) {
-                String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
+                String s = driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
                 System.out.println("Value in list is: " + s);
-                listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
+                listNames1.add(driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
             }
 
             DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
@@ -228,7 +228,7 @@ public class StudentSearch {
 
             return listNames.toArray();
         } else {
-            VerificationClass VerifyClass = new VerificationClass(driver1, extentTest);
+            VerificationClass VerifyClass = new VerificationClass(driver, extentTest);
             VerifyClass.verifyTextPresent(ClassValidation, "The Class field is required.");
         }
         return new Object[0];
@@ -236,7 +236,7 @@ public class StudentSearch {
 
     public Object[] CheckDataByClassAndSectionInctive() throws IOException, SQLException, InterruptedException {
 
-        ActionClass actionClass = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass = new ActionClass(this.driver, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         actionClass.clickOnObject(this.ClickOnStudentDetails);
         actionClass.clickOnObject(this.SelectClass);
@@ -276,13 +276,13 @@ public class StudentSearch {
             }
             else
             {
-                List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
+                List<WebElement> ListStudent = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
                 int ClassStudentsize = ListStudent.size();
                 ArrayList<String> listNames1 = new ArrayList<String>();
                 for (int i = 1; i <= ClassStudentsize; i++) {
-                    String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
+                    String s = driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
                     System.out.println("Value in list is: " + s);
-                    listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
+                    listNames1.add(driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
                 }
 
                 ArrayList<Integer> CheckDataByClassAndSectionInctive = new ArrayList<Integer>(listNames1.size());
@@ -306,7 +306,7 @@ public class StudentSearch {
             }
         }
         else {
-            VerificationClass VerifyClass = new VerificationClass(driver1, extentTest);
+            VerificationClass VerifyClass = new VerificationClass(driver, extentTest);
             VerifyClass.verifyTextPresent(ClassValidation, "The Class field is required.");
         }
         return new Object[0];
@@ -316,7 +316,7 @@ public class StudentSearch {
 
     public Object[] CheckDataByClassInactive() throws IOException, SQLException, InterruptedException {
 
-        ActionClass actionClass = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass = new ActionClass(this.driver, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         actionClass.clickOnObject(this.ClickOnStudentDetails);
         actionClass.clickOnObject(this.SelectClass);
@@ -328,13 +328,13 @@ public class StudentSearch {
             actionClass.clickOnObject(this.ClickonStatus);
             actionClass.clickOnObject(this.ClickonStatusInactive);
             actionClass.clickOnObject(this.ClickOnSearch1);
-            List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
+            List<WebElement> ListStudent = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
             int ClassStudentsize = ListStudent.size();
             ArrayList<String> listNames1 = new ArrayList<String>();
             for (int i = 1; i <= ClassStudentsize; i++) {
-                String s = driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
+                String s = driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText();
                 System.out.println("Value in list is: " + s);
-                listNames1.add(driver1.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
+                listNames1.add(driver.findElement(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr[" + i + "]/td[1]")).getText());
             }
 
             ArrayList<Integer> CheckDataByClassInactiveList1= new ArrayList<Integer>(listNames1.size());
@@ -370,7 +370,7 @@ public class StudentSearch {
 
             return listNames.toArray();
         } else {
-            VerificationClass VerifyClass = new VerificationClass(driver1, extentTest);
+            VerificationClass VerifyClass = new VerificationClass(driver, extentTest);
             VerifyClass.verifyTextPresent(ClassValidation, "The Class field is required.");
         }
         return new Object[0];
@@ -380,20 +380,20 @@ public class StudentSearch {
 
     public Object[] CheckForKeyWordSearch() throws IOException, SQLException, InterruptedException{
 
-        ActionClass actionClass = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass = new ActionClass(this.driver, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         actionClass.clickOnObject(this.ClickOnStudentDetails);
         actionClass.clickOnObject(this.KeywordSearchtxt);
         actionClass.setValueinTextbox(KeywordSearchtxt,"Riddhi");
         actionClass.clickOnObject(this.ClickOnbtnSearch);
 
-        List<WebElement> ListStudent1 = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
+        List<WebElement> ListStudent1 = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
         int listsize = ListStudent1.size();
         ArrayList<String> KeywordListF = new ArrayList<String>();
         for (int i = 1; i <= listsize; i++) {
-            String s = driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText();
+            String s = driver.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText();
             System.out.println("Value in list is: " + s);
-            KeywordListF.add(driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText());
+            KeywordListF.add(driver.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText());
         }
         ArrayList<Integer> KeywordSearchIntegerList1= new ArrayList<Integer>(KeywordListF.size());
         for(String myInt : KeywordListF ){
@@ -430,18 +430,18 @@ public class StudentSearch {
 
     public Object[] ListStudentDetail() throws IOException, SQLException {
 
-        ActionClass actionClass = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass = new ActionClass(this.driver, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         actionClass.clickOnObject(this.ClickOnStudentDetails);
         actionClass.clickOnObject(this.ClickOnbtnSearch);
-        List<WebElement> ListStudent = driver1.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
+        List<WebElement> ListStudent = driver.findElements(By.xpath("//*[@id=\"DataTables_Table_0\"]/tbody/tr"));
 
         int listsize = ListStudent.size();
         ArrayList<String> listNames1 = new ArrayList<String>();
         for (int i = 1; i <= listsize; i++) {
-            String s = driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText();
+            String s = driver.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText();
             System.out.println("Value in list is: " + s);
-            listNames1.add(driver1.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText());
+            listNames1.add(driver.findElement(By.xpath("//table[@id='DataTables_Table_0']/tbody/tr[" + i + "]/td[1]")).getText());
         }
         ArrayList<Integer> newIntegerList1= new ArrayList<Integer>(listNames1.size());
         for(String myInt : listNames1 ){

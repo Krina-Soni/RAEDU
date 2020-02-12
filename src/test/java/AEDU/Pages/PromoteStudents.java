@@ -28,7 +28,7 @@ import java.util.List;
 
 
 public class PromoteStudents {
-    WebDriver driver1;
+    WebDriver driver;
     ExtentTest extentTest;
     Connection conn = null;
     //Docker
@@ -36,7 +36,7 @@ public class PromoteStudents {
     //localDB
     String url = "jdbc:mysql://localhost:3306/";
     String dbName = "aedu-dev1";
-    String driver = "com.mysql.jdbc.Driver";
+    String driver1 = "com.mysql.jdbc.Driver";
     String userName = "root";
     String password = "";
     Statement statement;
@@ -226,7 +226,7 @@ public class PromoteStudents {
 
     public PromoteStudents(WebDriver driver, ExtentTest test) {
 
-        this.driver1 = driver;
+        this.driver = driver;
         this.extentTest = test;
         PageFactory.initElements(driver, this);
 
@@ -234,7 +234,7 @@ public class PromoteStudents {
 
     public void Promote(String username1, String pwd) throws IOException {
 
-        ActionClass actionClass = new ActionClass(driver1, extentTest);
+        ActionClass actionClass = new ActionClass(driver, extentTest);
         actionClass.clickOnObject(username);
         actionClass.setValueinTextbox(this.username, username1);
         actionClass.clickOnObject(password1);
@@ -246,26 +246,26 @@ public class PromoteStudents {
     }
 
     public void validation(String add1) throws IOException, InterruptedException {
-        driver1.get("https://dev1.aedu.co.in/admin/stdtransfer/index");
-        ActionClass actionClass5 = new ActionClass(driver1, extentTest);
+        driver.get("https://dev1.aedu.co.in/admin/stdtransfer/index");
+        ActionClass actionClass5 = new ActionClass(driver, extentTest);
         actionClass5.clickOnObject(searchbtn);
-        ActionClass actionClass = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass = new ActionClass(this.driver, extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         Thread.sleep(3000);
         actionClass.clickOnObject(this.ClickOnPromoteStudent);
         actionClass.clickOnObject(this.searchbtn);
-        VerificationClass very = new VerificationClass(driver1, extentTest);
+        VerificationClass very = new VerificationClass(driver, extentTest);
         very.verifyTextPresent(this.classfeildvalidation, "The Class field is required.");
         very.verifyTextPresent(this.sectionfeildvalidation, "The Section field is required.");
         //section feild validation
     }
 
     public void feildvalidations() throws IOException, IOException {
-        ActionClass actionClass1 = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass1 = new ActionClass(this.driver, extentTest);
         actionClass1.clickOnObject(this.classfeild);
         actionClass1.clickOnObject(this.selectoption);
         actionClass1.clickOnObject(this.searchbtn);
-        VerificationClass very1 = new VerificationClass(driver1, extentTest);
+        VerificationClass very1 = new VerificationClass(driver, extentTest);
         very1.verifyTextPresent(this.sectionfeildvalidation, "The Section field is required.");
 
     }
@@ -273,12 +273,12 @@ public class PromoteStudents {
     public void classfeildvalidations() throws IOException, IOException {
         if (selectoption.isSelected() == true) {
             System.out.println("hii");
-            ActionClass actionClass2 = new ActionClass(this.driver1, extentTest);
+            ActionClass actionClass2 = new ActionClass(this.driver, extentTest);
             actionClass2.clickOnObject(this.sectionfeild);
             actionClass2.clickOnObject(this.selectoptionforsection);
 
         } else {
-            VerificationClass very3 = new VerificationClass(driver1, extentTest);
+            VerificationClass very3 = new VerificationClass(driver, extentTest);
             very3.verifyTextPresent(this.classfeildvalidation, "The Class field is required");
         }
         //check the class wise filter data with db
@@ -287,7 +287,7 @@ public class PromoteStudents {
 
     public Object[] listdata() throws IOException, InterruptedException, SQLException {
 
-        ActionClass actionClass4 = new ActionClass(this.driver1, extentTest);
+        ActionClass actionClass4 = new ActionClass(this.driver, extentTest);
         actionClass4.clickOnObject(this.sidemenustudentinfomenuclick);
         Thread.sleep(3000);
         actionClass4.clickOnObject(this.ClickOnPromoteStudent);
@@ -298,17 +298,17 @@ public class PromoteStudents {
             actionClass4.clickOnObject(this.sectionfeild);
             actionClass4.clickOnObject(this.selectoptionforsection);
             actionClass4.clickOnObject(this.searchbtn);
-            JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver1;
+            JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver;
             jsetaskscore.executeScript("scrollBy(0, 300)");
-            List<WebElement> ListStudent = driver1.findElements(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr"));
+            List<WebElement> ListStudent = driver.findElements(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr"));
 
             int listsize = ListStudent.size();
             System.out.println(listsize);
             ArrayList listNames1 = new ArrayList();
             for (int i = 2; i <= listsize; i++) {
-                String s = driver1.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i + "]/td[1]")).getText();
+                String s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i + "]/td[1]")).getText();
                 System.out.println("Value in list is: " + s);
-                listNames1.add(driver1.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[\" + i + \"]/td[1]")).getText());
+                listNames1.add(driver.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[\" + i + \"]/td[1]")).getText());
             }
             DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
             conn = DAB.connect();
@@ -332,7 +332,7 @@ public class PromoteStudents {
             actionClass4.captureScreen("Default Keyword search");
             return listNames1.toArray();
         } else {
-            VerificationClass very = new VerificationClass(driver1, extentTest);
+            VerificationClass very = new VerificationClass(driver, extentTest);
             very.verifyTextPresent(this.classfeildvalidation, "The Class field is required");
         }
 //        return listNames1.toArray();
@@ -343,7 +343,7 @@ public class PromoteStudents {
 
 //    Promote the student into a different class
     public void Promoteinsession() throws InterruptedException, IOException, SQLException {
-        ActionClass actionClass=new ActionClass(this.driver1,extentTest);
+        ActionClass actionClass=new ActionClass(this.driver,extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         Thread.sleep(3000);
         actionClass.clickOnObject(this.ClickOnPromoteStudent);
@@ -361,13 +361,13 @@ public class PromoteStudents {
 
 
         Thread.sleep(3000);
-        List<WebElement> ListPromoteStudent = driver1.findElements(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr"));
+        List<WebElement> ListPromoteStudent = driver.findElements(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr"));
         int listsize = ListPromoteStudent.size();
         ArrayList <String>  PromoteStudentList = new ArrayList<String>();
         for(int i=2; i<=listsize; i++){
-            String s = driver1.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i +"]/td[1]")).getText();
+            String s = driver.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i +"]/td[1]")).getText();
             System.out.println("Values in the list: "+ s);
-            PromoteStudentList.add(driver1.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i +"]/td[1]")).getText());
+            PromoteStudentList.add(driver.findElement(By.xpath("/html/body/div[1]/div[1]/section[2]/div/div/div[2]/div[2]/form/div[2]/table/tbody/tr[" + i +"]/td[1]")).getText());
         }
         ArrayList<Integer> PromoteStudentListIntegerList= new ArrayList<Integer>(PromoteStudentList.size());
         for(String myInt : PromoteStudentList ){
@@ -380,7 +380,7 @@ public class PromoteStudents {
         actionClass.clickOnObject(this.Savebtnpopup);
         Thread.sleep(3000);
 
-        VerificationClass very = new VerificationClass(driver1, extentTest);
+        VerificationClass very = new VerificationClass(driver, extentTest);
         very.verifyTextPresent(this.classfeildvalidation, "No Record Found");
 
         DatabaseFunctions DAB = new DatabaseFunctions(extentTest);
@@ -408,7 +408,7 @@ public class PromoteStudents {
 
     }
     public void LeaveStudent()throws InterruptedException,IOException{
-        ActionClass actionClass=new ActionClass(this.driver1,extentTest);
+        ActionClass actionClass=new ActionClass(this.driver,extentTest);
         actionClass.clickOnObject(this.ClickOnStudentInformation);
         Thread.sleep(3000);
         actionClass.clickOnObject(this.ClickOnPromoteStudent);
@@ -423,7 +423,7 @@ public class PromoteStudents {
         actionClass.clickOnObject(this.SelectclassforPromote);
         actionClass.clickOnObject(this.PromoteSession);
         actionClass.clickOnObject(this.SelectsectionforPromote);
-        JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver1;
+        JavascriptExecutor jsetaskscore = (JavascriptExecutor) driver;
         jsetaskscore.executeScript("scrollBy(0, 150)");
         actionClass.clickOnObject(this.Leavbtn);
          actionClass.clickOnObject(this.Promotebtn);
