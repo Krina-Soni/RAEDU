@@ -79,7 +79,6 @@ public class StudentInformation {
     public void loginWithCredentials(String username, String password) throws InterruptedException, IOException {
         ActionClass actionclass = new ActionClass(driver,extentTest);
         actionclass.clickOnObject(username1);
-
         actionclass.setValueinTextbox(this.username1, username);
         this.Fieldpassword.click();
         actionclass.setValueinTextbox(this.Fieldpassword, password);

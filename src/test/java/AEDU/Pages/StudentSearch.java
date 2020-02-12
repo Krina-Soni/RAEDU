@@ -111,18 +111,6 @@ public class StudentSearch {
         this.driver = driver;
         this.extentTest = test;
         PageFactory.initElements(driver, this);
-        try {
-            //Class.forName(driver).newInstance();
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection(url + dbName, userName, password);
-            test.log(Status.INFO, "Sucessfully connected to Databse" + dbName);
-            System.out.println("connected to database successfully");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            test.log(Status.FAIL, "Unable to Provide Connection With Database" + dbName);
-        }
-        //return conn;
     }
     //Check By Using Only Class Filter "Active"
 
