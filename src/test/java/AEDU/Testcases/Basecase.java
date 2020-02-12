@@ -9,6 +9,10 @@ import java.sql.SQLException;
 
 public class Basecase extends ReportClass{
     public static WebDriver driver;
+
+    /*
+ Below method will execute before each testcase.
+     */
     @BeforeMethod
     public void initialize() throws SQLException
     {
@@ -17,11 +21,17 @@ public class Basecase extends ReportClass{
         options.addArguments("--remote-debugging-port=9222");
         options.addArguments("headless");
 
-
+        //System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"\\chromedriver.exe" );
+        //driver = new ChromeDriver(options);
+        //driver.get("http://toolsqa.com/automation-practice-form/");
+        //driver.get("http://toolsqa.com/automation-practice-table/");
+        //driver.get("http://toolsqa.com/handling-alerts-using-selenium-webdriver/");
         System.setProperty("Webdriver.chrome.driver",System.getProperty("user.dir")+"chromedriver");
         driver = new ChromeDriver();
-        CommonVar common = new CommonVar();
+        CommonVar common=new CommonVar();
         driver.get(common.url);
         driver.manage().window().maximize();
+
     }
+
 }
